@@ -1,5 +1,6 @@
 package com.tig.wordle.words;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -65,5 +66,16 @@ public class WordService {
         // Compares patterns
         boolean result = pattern.equals(newPattern);
         return result;
+    }
+    public List<Word> findMatchingWords(Word guess, List<Word> wordList, LinkedHashMap<String, String> pattern){
+        // Initialise list of remaining words
+        List<Word> remainingWords = new ArrayList<>();
+        // Loop through word list
+        for (int i = 0; i < wordList.size(); i++) {
+            if (checkPatternMatch(guess, wordList.get(i), pattern)){
+                remainingWords.add(wordList.get(i));
+            }
+        }
+        return remainingWords;
     }
 }
