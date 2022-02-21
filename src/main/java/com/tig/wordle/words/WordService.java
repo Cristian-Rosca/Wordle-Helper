@@ -96,4 +96,29 @@ public class WordService {
     public Double logTwo(Double value){
         return log(value)/log(2);
     }
+    public Double computeWordScore(Word word, List<Word> wordList) {
+        // Loop over all the words. Generate pattern for each one, add to list of patterns if unique
+        List<LinkedHashMap> patterns = new ArrayList<>();
+        LinkedHashMap<String, String> newPattern;
+        for (int i = 0; i < wordList.size(); i++) {
+            newPattern = generateWordPattern(word,wordList.get(i));
+            if (!patterns.contains(newPattern)){
+                patterns.add(newPattern);
+            }
+
+
+        }
+
+        Double probability;
+        double score = 0;
+        for (int i = 0; i < patterns.size(); i++) {
+            probability = computePatternProbability(word, wordList, patterns.get(i));
+            score = score- probability * logTwo(probability);
+
+        }
+
+        return score;
+
+    }
 }
+
