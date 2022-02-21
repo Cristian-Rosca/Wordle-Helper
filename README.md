@@ -33,17 +33,7 @@ Nice-to-haves (if time):
 Date  | Tasks
 ------------- | -------------
 **Sunday (20/02)**: | .
-**Monday (21/02)**: |Version 1 <br>• (Re)build version 1 of wordle solver
-
-• Write tests for methods in version 1
-
-Version 2
-
-• DAO Layer to access DB
-
-• Method to import from CSV to words table
-
-• Integrate with wordle database
+**Monday (21/02)**: |Version 1 <br> • (Re)build version 1 of wordle solver <br> • Write tests for methods in version 1 <br> Version 2 <br> • DAO Layer to access DB  <br> • Method to import from CSV to words table <br> • Integrate with wordle database
 
 
 
