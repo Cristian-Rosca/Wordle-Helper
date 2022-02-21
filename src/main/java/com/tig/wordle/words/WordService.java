@@ -128,6 +128,7 @@ public class WordService {
             wordList.get(i).setScore(score);
         }
         return wordList;
+
     }
 
 }
