@@ -3,6 +3,7 @@ package com.tig.wordle.words;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import static java.lang.Math.log;
 
 public class WordService {
     public List<Word> setUniformProbabilities(List<Word> wordList) {
@@ -90,5 +91,9 @@ public class WordService {
             sum += remainingWord.getProbability();
         }
         return sum;
+    }
+
+    public Double logTwo(Double value){
+        return log(value)/log(2);
     }
 }
