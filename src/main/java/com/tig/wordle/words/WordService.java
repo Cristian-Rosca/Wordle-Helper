@@ -59,4 +59,11 @@ public class WordService {
         }
         return pattern;
     }
+    public boolean checkPatternMatch(Word word, Word targetWord, LinkedHashMap<String, String> pattern){
+        // Pattern for target word
+        LinkedHashMap<String, String> newPattern = generateWordPattern(word, targetWord);
+        // Compares patterns
+        boolean result = pattern.equals(newPattern);
+        return result;
+    }
 }
