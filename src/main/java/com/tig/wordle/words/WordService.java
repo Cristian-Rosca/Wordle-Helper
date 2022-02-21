@@ -1,5 +1,6 @@
 package com.tig.wordle.words;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class WordService {
@@ -13,5 +14,49 @@ public class WordService {
             wordList.set(i, currentWord);
         }
         return wordList;
+    }
+
+    public LinkedHashMap<String, String> generateWordPattern(Word word, Word targetWord){
+        // Initialise empty map
+        LinkedHashMap<String, String> pattern = new LinkedHashMap<>();
+        // Set arrays for the characters
+        Character[] lettersInWord = new Character[word.getWord().length()];
+        Character[] lettersInTarget = new Character[targetWord.getWord().length()];
+        // Loop over and check for green letters
+        for (int i = 0; i < lettersInWord.length; i++){
+            lettersInWord[i] = word.getWord().charAt(i);
+            lettersInTarget[i] = targetWord.getWord().charAt(i);
+            if (lettersInWord[i] == lettersInTarget[i]){
+                // Set this letter to green in the pattern
+                pattern.put(String.valueOf(lettersInWord[i]) + i, "green");
+                // Indicate these letters are spent
+                lettersInWord[i] = null;
+                lettersInTarget[i] = null;
+            }
+        }
+        // Loop over and check for orange letters
+        for (int i = 0; i < lettersInWord.length; i++) {
+            if (lettersInWord[i] != null){
+                // Loop over letters in target word
+                for (int j = 0; j < lettersInTarget.length; j++){
+                    if (lettersInWord[i] == lettersInTarget[j]){
+                        // Set this letter to orange in the pattern
+                        pattern.put(String.valueOf(lettersInWord[i]) + i, "orange");
+                        // Indicate these letters are spent
+                        lettersInWord[i] = null;
+                        lettersInTarget[j] = null;
+                        break;
+                    }
+                }
+            }
+        }
+        // Loop over and check for greys
+        for (int i = 0; i < lettersInWord.length; i++) {
+            if (lettersInWord[i] != null) {
+                // Set letter to grey in pattern
+                pattern.put(String.valueOf(lettersInWord[i]) + i, "grey");
+            }
+        }
+        return pattern;
     }
 }
