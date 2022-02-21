@@ -106,19 +106,28 @@ public class WordService {
                 patterns.add(newPattern);
             }
 
-
         }
 
         Double probability;
         double score = 0;
         for (int i = 0; i < patterns.size(); i++) {
             probability = computePatternProbability(word, wordList, patterns.get(i));
-            score = score- probability * logTwo(probability);
+            score = score - probability * logTwo(probability);
 
         }
-
         return score;
 
     }
+
+    public List <Word> computeScoreDistribution (List<Word> wordList) {
+        // Method goes through wordlist, calculates score for each word, sets the score of that word to the score that it calculated
+        Double score;
+        for (int i = 0; i < wordList.size(); i++) {
+            score = computeWordScore(wordList.get(i), wordList);
+            wordList.get(i).setScore(score);
+        }
+        return wordList;
+    }
+
 }
 
