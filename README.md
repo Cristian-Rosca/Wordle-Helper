@@ -1,7 +1,9 @@
 # Wordle Helper Back-End Group Project
 
-We are The Imitation Game, a team consisting of BNTA Cohort 4 members, [Alex](), [Cristian](), [Suad](), [Rosalinda](), and [Rachel]().
+We are The Imitation Game, a team consisting of BNTA Cohort 4 members, [Alex](https://github.com/oleksiysmola), [Cristian](https://github.com/Roscaaa), [Suad](https://github.com/suadali), [Rosalinda](https://github.com/rosaacodes), and [Rachel](https://github.com/rkaurb).
 
+<!-- ![img](wordlehelper.png) -->
+<img src="wordlehelper.png" width=60% height=60%>
 <!-- What we've created, what inspired it -->
 
 <!-- Include Tech Stack - how client-side was built -->
@@ -28,6 +30,7 @@ _Competitive Mode_
 * Allow user to retrieve their average guesses
 * Play full game method (retrieve computer guess)
 
+<br>
 
 ## Potential Extensions to MVP
 
@@ -36,7 +39,7 @@ _Competitive Mode_
 * Leaderboard
 * Authentication
 
-**Stretch objective**
+**Stretch objective:**
 
 * Integrate with Wordle - web-scrape number of guesses for user to win (not relying on self-reporting)
 
@@ -51,7 +54,7 @@ Date  | Tasks
 **Tuesday (22/02)**  | _Version 2:_ <br> • DAO Layer to access DB  <br> • Method to import from CSV to words table <br> • Integrate with wordle database <br><br> Integration of an API (Controller), to send HTTP requests to progress game of Wordle <br><br>
 **Wednesday (23/02)** | .
 **Thursday (24/02)**  | Presentation dry-run
-**Friday (25/02)** | .
+**Friday (25/02)** | Client presentations
 
 <br>
 
@@ -64,6 +67,8 @@ Date  | Tasks
 <br>
 
 <!-- ## Future improvements? -->
+
+<!-- ## Acknowledgements -->
 
 
 
