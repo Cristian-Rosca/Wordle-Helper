@@ -96,6 +96,7 @@ public class WordService {
     public Double logTwo(Double value){
         return log(value)/log(2);
     }
+
     public Double computeWordScore(Word word, List<Word> wordList) {
         // Loop over all the words. Generate pattern for each one, add to list of patterns if unique
         List<LinkedHashMap> patterns = new ArrayList<>();
