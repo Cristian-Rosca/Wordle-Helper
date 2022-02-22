@@ -63,7 +63,14 @@ public class WordDataAccessService implements WordDAO {
 
     @Override
     public Word selectWordById(Integer id) {
-        return null;
+        String sql = """
+                SELECT id, word, probability, score
+                FROM original_word_list
+                WHERE id=?
+                """;
+
+        Word wordById = jdbcTemplate.query(sql, wordRowMapper, id).get(0);
+        return wordById;
     }
 
     @Override

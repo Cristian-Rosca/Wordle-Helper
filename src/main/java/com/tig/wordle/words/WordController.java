@@ -24,11 +24,15 @@ public class WordController {
         return wordService.getAllWordsRankedByScore();
     }
 
-    @GetMapping (path = "{numOfWords}")
+    @GetMapping (path = "ranked/{numOfWords}")
     public List <Word> getTopWords (@PathVariable("numOfWords") Integer numOfWords) {
         return wordService.getTopWords(numOfWords);
     }
 
+    @GetMapping (path = "wordbyid/{id}")
+    public Word getWordById (@PathVariable("id") Integer id) {
+        return wordService.getWordById(id);
+    }
 
 
 }

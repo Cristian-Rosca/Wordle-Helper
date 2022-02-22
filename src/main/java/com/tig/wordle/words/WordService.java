@@ -26,6 +26,9 @@ public class WordService {
         return wordDAO.selectAllWordsRankedByScore();
     }
 
+    public Word getWordById(Integer id) {
+        return wordDAO.selectWordById(id);
+    }
 
         //hardcoded to select 10 words only
     public List<Word> getTopWords(Integer numOfWords) {
