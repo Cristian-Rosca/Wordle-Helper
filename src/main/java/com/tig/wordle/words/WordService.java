@@ -13,9 +13,6 @@ public class WordService {
 
     private WordDAO wordDAO;
 
-    public WordService () {
-
-    }
 
     public WordService(@Qualifier("postgres") WordDAO wordDAO)  {
         this.wordDAO = wordDAO;
