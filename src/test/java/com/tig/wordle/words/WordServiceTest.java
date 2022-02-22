@@ -136,4 +136,44 @@ public class WordServiceTest {
         List<Word> expected = topThreeWords;
         assertThat(actual).isEqualTo(expected);
     }
+    @Test
+    void wordValidatorReturnsTrueWhenWordIsValid(){
+        // Given
+        Word testWord1 = new Word(1, "hello", 0.25, 2.0);
+        Word testWord2 = new Word(2, "image", 0.25, 1.0);
+        Word testWord3 = new Word(3, "opens", 0.25, 0.5);
+        Word testWord4 = new Word(4, "fares", 0.25, 0.25);
+        List<Word> allWords = new ArrayList<>();
+        allWords.add(testWord1);
+        allWords.add(testWord2);
+        allWords.add(testWord3);
+        allWords.add(testWord4);
+        given(wordDAO.selectAllWords()).willReturn(allWords);
+        String testString = "hello";
+        // When
+        Boolean actual = underTest.wordValidator(testString);
+        // Then
+        assertThat(actual).isTrue();
+    }
+    @Test
+    void wordValidatorThrowsException(){
+        // Given
+        Word testWord1 = new Word(1, "hello", 0.25, 2.0);
+        Word testWord2 = new Word(2, "image", 0.25, 1.0);
+        Word testWord3 = new Word(3, "opens", 0.25, 0.5);
+        Word testWord4 = new Word(4, "fares", 0.25, 0.25);
+        List<Word> allWords = new ArrayList<>();
+        allWords.add(testWord1);
+        allWords.add(testWord2);
+        allWords.add(testWord3);
+        allWords.add(testWord4);
+        given(wordDAO.selectAllWords()).willReturn(allWords);
+        String testString = "tacit";
+
+        // Then
+        assertThatThrownBy(() -> {
+            // When
+            underTest.wordValidator(testString);}
+        ).hasMessage("Invalid Entry. Word is not in word list");
+    }
 }
