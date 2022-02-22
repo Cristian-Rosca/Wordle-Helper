@@ -22,8 +22,12 @@ public class WordService {
         return wordDAO.selectAllWords();
     }
 
+    public List<Word> getAllWordsRankedByScore() {
+        return wordDAO.selectAllWordsRankedByScore();
+    }
 
-    //hardcoded to select 10 words only
+
+        //hardcoded to select 10 words only
     public List<Word> getTopWords(Integer numOfWords) {
         return wordDAO.selectTopWords(numOfWords);
     }

@@ -38,7 +38,13 @@ public class WordDataAccessService implements WordDAO {
 
     @Override
     public List<Word> selectAllWordsRankedByScore() {
-        return null;
+        String sql = """
+                SELECT id, word, probability, score
+                FROM original_word_list ORDER BY score DESC
+                """;
+
+        List<Word> gameWordList = jdbcTemplate.query(sql, wordRowMapper);
+        return gameWordList;
     }
 
 
