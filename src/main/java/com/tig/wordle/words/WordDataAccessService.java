@@ -10,6 +10,15 @@ import java.util.List;
 public class WordDataAccessService implements WordDAO {
 
     private JdbcTemplate jdbcTemplate;
+    private RowMapper<Word> wordRowMapper = (rs, rowNum) -> {
+        Word word = new Word(
+                rs.getInt("id"),
+                rs.getString("word"),
+                rs.getDouble("probability"),
+                rs.getDouble("score")
+        );
+        return word;
+    };
 
     public WordDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -23,15 +32,6 @@ public class WordDataAccessService implements WordDAO {
                 FROM original_word_list
                 """;
 
-        RowMapper<Word> wordRowMapper = (rs, rowNum) -> {
-            Word word = new Word(
-                    rs.getInt("id"),
-                    rs.getString("word"),
-                    rs.getDouble("probability"),
-                    rs.getDouble("score")
-            );
-            return word;
-        };
         List<Word> gameWordList = jdbcTemplate.query(sql, wordRowMapper);
         return gameWordList;
     }
@@ -51,15 +51,6 @@ public class WordDataAccessService implements WordDAO {
                 FROM original_word_list ORDER BY score DESC limit ?
                 """;
 
-        RowMapper<Word> wordRowMapper = (rs, rowNum) -> {
-            Word word = new Word(
-                    rs.getInt("id"),
-                    rs.getString("word"),
-                    rs.getDouble("probability"),
-                    rs.getDouble("score")
-            );
-            return word;
-        };
         List<Word> gameWordList = jdbcTemplate.query(sql, wordRowMapper, numOfWords);
         return gameWordList;
     }
