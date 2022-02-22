@@ -47,9 +47,6 @@ public class WordDataAccessService implements WordDAO {
         return gameWordList;
     }
 
-
-    //    //hardcoded to select 10 words only
-    //is id needed? if not, remove id from select and from rowmapper
     @Override
     public List<Word> selectTopWords(Integer numOfWords) {
         String sql = """
@@ -75,6 +72,14 @@ public class WordDataAccessService implements WordDAO {
 
     @Override
     public Word selectWordByName(String nameOfWord) {
-        return null;
+        String sql = """
+                SELECT id, word, probability, score
+                FROM original_word_list
+                WHERE word=?
+                """;
+
+        Word word = jdbcTemplate.query(sql, wordRowMapper, nameOfWord).get(0);
+        return word;
     }
+
 }

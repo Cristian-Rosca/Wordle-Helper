@@ -9,6 +9,7 @@ import java.util.List;
 public class WordController {
 
     private WordService wordService;
+    private List<Word> gameList;
 
     public WordController(WordService wordService) {
         this.wordService = wordService;
@@ -32,6 +33,11 @@ public class WordController {
     @GetMapping (path = "wordbyid/{id}")
     public Word getWordById (@PathVariable("id") Integer id) {
         return wordService.getWordById(id);
+    }
+
+    @GetMapping (path = "wordbyname/{nameofword}")
+    public Word getWordByName(@PathVariable("nameofword") String nameOfWord) {
+        return wordService.getWordByName(nameOfWord);
     }
 
 

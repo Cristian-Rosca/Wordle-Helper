@@ -30,7 +30,11 @@ public class WordService {
         return wordDAO.selectWordById(id);
     }
 
-        //hardcoded to select 10 words only
+    public Word getWordByName(String nameOfWord) {
+        return wordDAO.selectWordByName(nameOfWord);
+    }
+
+
     public List<Word> getTopWords(Integer numOfWords) {
         return wordDAO.selectTopWords(numOfWords);
     }
