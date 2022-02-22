@@ -1,9 +1,11 @@
 package com.tig.wordle.words;
 
+import com.tig.wordle.answers.Answer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -176,6 +178,44 @@ public class WordService {
         }
         return wordList;
 
+    }
+
+    public Answer getGuessesForAnswer(Answer answer){
+        // Get list of words ordered by score
+        List<Word> guessList = wordDAO.selectAllWordsRankedByScore();
+        // Boolean to track whether game is currently running
+        boolean running = true;
+        // Counter for number of guesses
+        Integer numberOfGuesses = 0;
+        // Get equivalent Word object for answer
+        Word wordAnswer = wordDAO.selectWordByName(answer.getAnswerOfDay());
+        // Placeholder pattern
+        LinkedHashMap<String, String> pattern;
+        // Best current guess
+        Word guess;
+        while(running){
+            numberOfGuesses++;
+            // Get highest scoring word from sorted guess list
+            guess = guessList.get(0);
+            // Generate pattern and find all matching words
+            pattern = generateWordPattern(guess, wordAnswer);
+            guessList = findMatchingWords(guess, guessList, pattern);
+            // Recompute probabilities and scores
+            guessList = setUniformProbabilities(guessList);
+            guessList = computeScoreDistribution(guessList);
+            // Sort by score
+            guessList = guessList.stream()
+                    .sorted(Comparator.comparing(Word::getScore).reversed())
+                    .collect(Collectors.toList());
+            // Check if guess matches answer
+            if (guessList.get(0).getWord().equals(answer.getAnswerOfDay())){
+                numberOfGuesses++;
+                running = false;
+            }
+        }
+        // Update number of guesses in answer
+        answer.setMachineResult(numberOfGuesses);
+        return answer;
     }
 
 }
