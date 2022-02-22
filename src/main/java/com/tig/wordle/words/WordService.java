@@ -22,6 +22,12 @@ public class WordService {
         return wordDAO.selectAllWords();
     }
 
+
+    //hardcoded to select 10 words only
+    public List<Word> getTopWords(Integer numOfWords) {
+        return wordDAO.selectTopWords(numOfWords);
+    }
+
     public List<Word> setUniformProbabilities(List<Word> wordList) {
         // For our list of words set probabilities to be equal
         // Placeholder

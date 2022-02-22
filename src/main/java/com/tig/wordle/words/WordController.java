@@ -1,11 +1,11 @@
 package com.tig.wordle.words;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("getwords")
 public class WordController {
 
     private WordService wordService;
@@ -14,9 +14,14 @@ public class WordController {
         this.wordService = wordService;
     }
 
-    @GetMapping (path = "getwords")
+    @GetMapping
     public List <Word> getAllWords () {
         return wordService.getAllWords();
+    }
+
+    @GetMapping (path = "{numOfWords}")
+    public List <Word> getTopWords (@PathVariable("numOfWords") Integer numOfWords) {
+        return wordService.getTopWords(numOfWords);
     }
 
 
