@@ -60,7 +60,7 @@ Date  | Tasks
 
 ## Project Structure
 
-<img src="erdiagram.png" width=70% height=70%>
+![img](erdiagram.png)
 
 <br>
 
