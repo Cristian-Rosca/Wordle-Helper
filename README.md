@@ -1,7 +1,9 @@
 # Wordle Helper Back-End Group Project
 
-We are The Imitation Game, a team consisting of BNTA Cohort 4 members, [Alex](), [Cristian](), [Suad](), [Rosalinda](), and [Rachel]().
+We are The Imitation Game, a team consisting of BNTA Cohort 4 members, [Alex](https://github.com/oleksiysmola), [Cristian](https://github.com/Roscaaa), [Suad](https://github.com/suadali), [Rosalinda](https://github.com/rosaacodes), and [Rachel](https://github.com/rkaurb).
 
+<!-- ![img](wordlehelper.png) -->
+<img src="wordlehelper.png" width=60% height=60%>
 <!-- What we've created, what inspired it -->
 
 <!-- Include Tech Stack - how client-side was built -->
@@ -10,21 +12,36 @@ We are The Imitation Game, a team consisting of BNTA Cohort 4 members, [Alex](),
 
 ## Minimum Viable Product (MVP)
 
-Must-haves:
+**Must-haves:**
 
-<!-- bullet points
-* 
--->
+_Helper Mode_
+* Service logic
+* Integration of an API (Controller), to send HTTP requests to progress game of Wordle
+* Integration with database containing the words (DAO interface with database implementation)
+* SQL file, with instructions to set up database and tables
+* Text (csv) file including full list of words, together with probabilities and scores
+* A Class which populates the Words table with data from text (csv) file
+
+_Competitive Mode_
+* Allow user to create User POJOs
+* Create a user in database
+* Allow user to input their number of guesses for a certain date
+* Allow users to compare their performance vs the computer, for a certain date
+* Allow user to retrieve their average guesses
+* Play full game method (retrieve computer guess)
 
 <br>
 
 ## Potential Extensions to MVP
 
-Nice-to-haves (if time):
+**Nice-to-haves (if time):**
 
-<!-- bullet points
-* 
--->
+* Leaderboard
+* Authentication
+
+**Stretch objective:**
+
+* Integrate with Wordle - web-scrape number of guesses for user to win (not relying on self-reporting)
 
 <br>
 
@@ -32,29 +49,18 @@ Nice-to-haves (if time):
 
 Date  | Tasks
 ------------- | -------------
-**Sunday (20/02)**: | .
-**Monday (21/02)**: |Version 1 <br>• (Re)build version 1 of wordle solver
-
-• Write tests for methods in version 1
-
-Version 2
-
-• DAO Layer to access DB
-
-• Method to import from CSV to words table
-
-• Integrate with wordle database
-
-
-
-**Tuesday (22/02)**:  | .
-**Wednesday (23/02)**: | .
-**Thursday (24/02)**:  | .
-**Friday (25/02)**: | .
+**Sunday (20/02)** | _Whiteboard group planning against Requirements:_ <br> POJOs, Controller Layer, Service Layer, DAO Layer, Tables <br><br>
+**Monday (21/02)** | ER Diagram <br><br> _Version 1:_ <br> • (Re)build version 1 of wordle solver (mob programming) <br> • Write tests for methods in version 1 (pair programming) <br><br>
+**Tuesday (22/02)**  | _Version 2:_ <br> • DAO Layer to access DB  <br> • Method to import from CSV to words table <br> • Integrate with wordle database <br><br> Integration of an API (Controller), to send HTTP requests to progress game of Wordle <br><br>
+**Wednesday (23/02)** | .
+**Thursday (24/02)**  | Presentation dry-run
+**Friday (25/02)** | Client presentations
 
 <br>
 
 ## Project Structure
+
+![img](erdiagram.png)
 
 <br>
 
@@ -63,6 +69,8 @@ Version 2
 <br>
 
 <!-- ## Future improvements? -->
+
+<!-- ## Acknowledgements -->
 
 
 
