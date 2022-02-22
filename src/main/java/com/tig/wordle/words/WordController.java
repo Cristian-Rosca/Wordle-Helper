@@ -58,11 +58,7 @@ public class WordController {
                 .collect(Collectors.toList()).get(0);
         // Remove words that don't match word and pattern
         this.gameList = wordService.findMatchingWords(wordFromList, gameList, pattern);
-        return gameList;
-    }
 
-    @PutMapping("game/updatescores")
-    public List <Word> updateScores(){
         // Update probabilities and scores
         this.gameList = wordService.setUniformProbabilities(gameList);
         this.gameList = wordService.computeScoreDistribution(gameList);
@@ -72,6 +68,18 @@ public class WordController {
                 .collect(Collectors.toList());
         return gameList;
     }
+
+//    @PutMapping("game/updatescores")
+//    public List <Word> updateScores(){
+//        // Update probabilities and scores
+//        this.gameList = wordService.setUniformProbabilities(gameList);
+//        this.gameList = wordService.computeScoreDistribution(gameList);
+//        // Sort by scores in descending order
+//        this.gameList = gameList.stream()
+//                .sorted(Comparator.comparing(Word::getScore).reversed())
+//                .collect(Collectors.toList());
+//        return gameList;
+//    }
 
     @DeleteMapping("game/endgame")
     public List<Word> endGame(){
