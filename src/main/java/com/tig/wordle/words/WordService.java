@@ -1,11 +1,30 @@
 package com.tig.wordle.words;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import static java.lang.Math.log;
 
+@Service
 public class WordService {
+
+    private WordDAO wordDAO;
+
+    public WordService () {
+
+    }
+
+    public WordService(@Qualifier("postgres") WordDAO wordDAO)  {
+        this.wordDAO = wordDAO;
+    }
+
+    public List<Word> getAllWords() {
+        return wordDAO.selectAllWords();
+    }
+
     public List<Word> setUniformProbabilities(List<Word> wordList) {
         // For our list of words set probabilities to be equal
         // Placeholder
