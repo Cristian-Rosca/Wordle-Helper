@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.Math.log;
 
 @Service
@@ -37,6 +39,18 @@ public class WordService {
 
     public List<Word> getTopWords(Integer numOfWords) {
         return wordDAO.selectTopWords(numOfWords);
+    }
+
+    public Boolean wordValidator (String word) {
+        List<Word> allWords = getAllWords();
+        List <Word> checkWord = allWords.stream()
+                .filter(wordInList -> wordInList.getWord().equals(word))
+                .collect(Collectors.toList());
+
+        if (!checkWord.isEmpty()) {
+            return true;
+        }
+        else throw new IllegalStateException("Invalid Entry. Word is not in word list");
     }
 
     public List<Word> setUniformProbabilities(List<Word> wordList) {

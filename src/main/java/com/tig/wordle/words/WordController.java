@@ -52,6 +52,10 @@ public class WordController {
     @DeleteMapping("game/guess/{word}")
     public List <Word> guessWord(@PathVariable("word") String word,
                                  @RequestBody LinkedHashMap<String, String> pattern){
+
+        // Check that user guess is in list of possible words
+        wordService.wordValidator(word);
+
         // Get our guess from the list
         Word wordFromList = gameList.stream()
                 .filter(wordInList -> wordInList.getWord().equals(word))
