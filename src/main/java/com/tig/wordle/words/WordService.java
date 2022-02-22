@@ -50,7 +50,7 @@ public class WordService {
         if (!checkWord.isEmpty()) {
             return true;
         }
-        else throw new IllegalStateException("Invalid Entry. Word is not in word list");
+        else throw new WordNotValidException("Invalid Entry. Word is not in word list");
     }
 
     public List<Word> setUniformProbabilities(List<Word> wordList) {
