@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AnswerService {
@@ -60,18 +61,18 @@ public class AnswerService {
     }
 
     public Integer updateAnswerById(Integer id, Answer answer) {
-        // Get the current answers from the table
-        List<Answer> currentAnswers = getAllAnswers();
-        // Empty list for the dates
-        List<LocalDate> dates = new ArrayList<>();
-        // Fill list of dates
-        for (int i = 0; i < currentAnswers.size(); i++) {
-            dates.add(currentAnswers.get(i).getDateOfAnswer());
-        }
-        // Check if our new answer date is included in current list of dates
-        if (dates.contains(answer.getDateOfAnswer())){
-            throw new AnswerDateTakenException("Could not update answer in table as given date already exists");
-        }
+//        // Get the current answers from the table
+//        List<Answer> currentAnswers = getAllAnswers();
+//        // Empty list for the dates
+//        List<LocalDate> dates = new ArrayList<>();
+//        // Fill list of dates
+//        for (int i = 0; i < currentAnswers.size(); i++) {
+//            dates.add(currentAnswers.get(i).getDateOfAnswer());
+//        }
+//        // Check if our new answer date is included in current list of dates
+//        if (dates.contains(answer.getDateOfAnswer())){
+//            throw new AnswerDateTakenException("Could not update answer in table as given date already exists");
+//        }
         if (getAnswerById(id) == null){
             throw new AnswerNotFoundException("No answer with given id exists");
         }

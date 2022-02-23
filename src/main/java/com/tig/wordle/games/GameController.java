@@ -1,5 +1,6 @@
 package com.tig.wordle.games;
 
+import com.tig.wordle.answers.Answer;
 import com.tig.wordle.answers.AnswerService;
 import com.tig.wordle.user.UserService;
 import com.tig.wordle.words.WordService;
@@ -46,4 +47,26 @@ public class GameController {
                                   @RequestBody Game game){
         return gameService.updateGameById(id, game);
     }
+
+    @PutMapping(path = "computemachinescores")
+    public void computeMachineScores(){
+        // Get list of answers from answer table
+        List<Answer> answerList = answerService.getAllAnswers();
+        // Placeholder for answers with machine scores computed
+        Answer answerWithMachineGuesses;
+        for (int i = 0; i < answerList.size(); i++){
+            if (answerList.get(i).getMachineResult() != null){
+                continue;
+            }
+            // Add machine guesses for answer
+            answerWithMachineGuesses = wordService.getGuessesForAnswer(answerList.get(i));
+            System.out.println("id " + answerWithMachineGuesses.getId()
+                    + ": " + answerWithMachineGuesses.getAnswerOfDay() + " guessed in "
+                    + answerWithMachineGuesses.getMachineResult());
+            // Update score in answer table
+            answerService.updateAnswerById(answerWithMachineGuesses.getId(),
+                    answerWithMachineGuesses);
+        }
+    }
+
 }
