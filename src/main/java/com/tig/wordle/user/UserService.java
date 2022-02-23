@@ -17,15 +17,6 @@ public class UserService {
     }
 
 
-    //this exception doesnt get thrown!
-    private User confirmUserOrThrow(Integer userId) {
-        User user = userDAO.getUserById(userId);
-        if (user == null) {
-            throw new IllegalArgumentException("User with id " + userId + " does not exist");
-        }
-        return user;
-    }
-
     //loops through all the users and sees if there is a user matching the given id
     private boolean doesUserWithIdExists(Integer id) {
         return userDAO
@@ -35,15 +26,12 @@ public class UserService {
     }
 
     public User selectUserByID(Integer userId) {
-        //atm this cannot be tested??
+        //redundant?
         if (userId == null){
             throw new IllegalStateException("ID cannot be null");
         }
 
-        //if id entered is not a number?
 
-
-//        throws exception if id entered doesnt exist
         boolean exists = doesUserWithIdExists(userId);
         if(exists==false) {
             throw new IllegalStateException("User with ID " + userId + " does not exist");
@@ -51,18 +39,12 @@ public class UserService {
         User user = userDAO.getUserById(userId);
         return user;
 
-        //This method doesnt throw exception for some reason! even when I put the whole confirmorthrow method inside here
-//        User user = confirmUserOrThrow(userId);
-//        return user;
+
     }
-
-
-
 
     public List<User> getAllUsers () {
         return userDAO.getAllUsers();
     }
-
 
     public Integer addUserToTable(User user) {
         if(user.getName() != null
@@ -79,10 +61,11 @@ public class UserService {
     }
 
     public Integer deleteUserById(Integer userId){
+        //redundant?
         if (userId == null){
             throw new IllegalStateException("Id cannot be null");
         }
-        User userToDelete = userDAO.getUserById(userId);
+
 
         boolean exists = doesUserWithIdExists(userId);
         if(exists==false) {
