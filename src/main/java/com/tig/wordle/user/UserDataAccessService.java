@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("postgres")
+// todo: verify if "user" is correct
+@Repository("user")
 public class UserDataAccessService implements UserDAO{
     private JdbcTemplate jdbcTemplate;
     private RowMapper<User> userRowMapper = (rs, rowNum) -> {
@@ -24,7 +25,9 @@ public class UserDataAccessService implements UserDAO{
     }
     @Override
     public List<User> getAllUsers() {
-        return null;
+        String sql = "SELECT id,name,email,username FROM users";
+        List <User> userList = jdbcTemplate.query(sql,userRowMapper);
+        return userList;
     }
 
     @Override
