@@ -43,8 +43,35 @@ public class UserServiceTest {
         List <User> expected = userList;
         assertThat(actual).isEqualTo(expected);
 
+        System.out.println(actual);
+        System.out.println("------");
+        System.out.println(expected);
     }
 
+
+    @Test
+    void canGetUserById () {
+        // Given
+        User user1 = new User(1,"user1","user1email", "user1name");
+        User user2 = new User(2,"user2","user2email", "user2name");
+        User user3 = new User(3,"user3","user3email", "user3name");
+        User user4 = new User(4,"user4","user4email", "user3name");
+        List<User> userList = new ArrayList<>();
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+        userList.add(user4);
+        given(userDAO.getAllUsers()).willReturn(userList);
+
+        given(userDAO.getUserById(2)).willReturn(user2);
+        // When
+        User actual = underTest.selectUserByID(2);
+
+        //Then
+        User expected = user2;
+        assertThat(actual).isEqualTo(expected);
+
+    }
 
 }
 

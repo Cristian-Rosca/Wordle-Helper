@@ -18,7 +18,7 @@ public class UserService {
 
 
     //loops through all the users and sees if there is a user matching the given id
-    private boolean doesUserWithIdExists(Integer id) {
+    public boolean doesUserWithIdExists(Integer id) {
         return userDAO
                 .getAllUsers()
                 .stream()
