@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService {
@@ -36,5 +37,17 @@ public class GameService {
 
     public List<GameResults> getAllResultsVsMachineForDate (LocalDate date) {
         return gameDAO.getUserGuessVsMachineResultsListForDate(date);
+    }
+    public GameResults getUserResultForDay(LocalDate date, String userName){
+        // Get all for results for day
+        List<GameResults> gameResultsForDay = getAllResultsVsMachineForDate(date);
+        // Find all entries with that username
+        List<GameResults> userResults = gameResultsForDay.stream()
+                .filter(gameResult -> gameResult.getUserName().equals(userName))
+                .collect(Collectors.toList());
+        if (userResults.isEmpty()){
+            return null;
+        }
+        return userResults.get(0);
     }
 }

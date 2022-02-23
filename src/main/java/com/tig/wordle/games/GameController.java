@@ -76,5 +76,10 @@ public class GameController {
     public List <GameResults> getAllResultsVsMachineForDate (@PathVariable("date") String date) {
         return gameService.getAllResultsVsMachineForDate(Date.valueOf(date).toLocalDate());
     }
+    @GetMapping(path = "dailyresults/{date}/{username}")
+    public GameResults getResultForGivenUserVsMachineForDate (@PathVariable("date") String date,
+                                                             @PathVariable("username") String username) {
+        return gameService.getUserResultForDay(Date.valueOf(date).toLocalDate(), username);
+    }
 
 }
