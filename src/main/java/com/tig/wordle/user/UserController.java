@@ -25,8 +25,18 @@ public class UserController {
         return userService.selectUserByID(userId);
     }
 
-    @PostMapping("new")
+    @PostMapping
     public Integer addUserToTable(@RequestBody User user) {
         return userService.addUserToTable(user);
+    }
+
+    @DeleteMapping("{userId}")
+    public Integer deleteUserByID(@PathVariable("userId") Integer userId){
+        return userService.deleteUserById(userId);
+    }
+
+    @PutMapping(path = "{userId}")
+    public void updateCar(@PathVariable("userId") Integer userId, @RequestBody User updatedUser) {
+        userService.updateUserByID(userId, updatedUser);
     }
 }

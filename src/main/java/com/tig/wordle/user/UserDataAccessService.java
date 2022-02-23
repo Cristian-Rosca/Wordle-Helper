@@ -58,11 +58,23 @@ public class UserDataAccessService implements UserDAO{
 
     @Override
     public Integer deleteUserById(Integer id) {
-        return null;
+        String sql = "DELETE FROM users WHERE id = ?";
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override
-    public Integer updateUserById(Integer id, User user) {
-        return null;
+    public Integer updateUserById(Integer userId, User updatedUser) {
+       String sql = """
+               UPDATE users SET (name, email, username) = (?,?,?)
+               WHERE id = ?
+               """;
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                updatedUser.getName(),
+                updatedUser.getEmail(),
+                updatedUser.getUserName(),
+                userId
+        );
+        return rowsAffected;
     }
 }

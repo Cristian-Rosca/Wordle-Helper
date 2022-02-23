@@ -17,6 +17,7 @@ public class UserService {
     }
 
     // Created private method
+    //this exception doesnt get thrown!
     private User confirmUserOrThrow(Integer userId) {
         User user = userDAO.getUserById(userId);
         if (user == null) {
@@ -25,12 +26,30 @@ public class UserService {
         return user;
     }
 
+    //loops through all the users and sees if there is a user matching the given id
+    private boolean doesUserWithIdExists(Integer id) {
+        return userDAO
+                .getAllUsers()
+                .stream()
+                .anyMatch(p -> p.getId().equals(id));  // returns boolean
+    }
+
     public User selectUserByID(Integer userId) {
         if (userId == null){
-            throw new IllegalStateException("Id cannot be null");
+            throw new IllegalStateException("ID cannot be null");
         }
-        User user = confirmUserOrThrow(userId);
+
+//        throws exception if id entered doesnt exist
+        boolean exists = doesUserWithIdExists(userId);
+        if(exists==false) {
+            throw new IllegalStateException("User with ID " + userId + " does not exist");
+        }
+        User user = userDAO.getUserById(userId);
         return user;
+
+        //This method doesnt throw exception for some reason! even when I put the whole confirmorthrow method inside here
+//        User user = confirmUserOrThrow(userId);
+//        return user;
     }
 
 
@@ -48,6 +67,39 @@ public class UserService {
         else {
             throw new IllegalStateException("Invalid entry. Fields cannot be empty");
         }
+    }
+
+    public Integer deleteUserById(Integer userId){
+        if (userId == null){
+            throw new IllegalStateException("Id cannot be null");
+        }
+        User userToDelete = userDAO.getUserById(userId);
+
+        //this exception doesnt flag...? use other one (does user exist)
+        if(userToDelete== null) {
+            throw new IllegalStateException("User with ID " + userId + " does not exist");
+        }
+
+        int result = userDAO.deleteUserById(userId);
+
+        return result;
+    }
+
+//Better validations!!! check that all fields are entered
+    public Integer updateUserByID(Integer userId, User updatedUser) {
+        if (userId == null){
+            throw new IllegalStateException("Id cannot be null");
+        }
+        User userToUpdate = userDAO.getUserById(userId);
+
+        //this exception doesnt flag...? use other one (does user exist)
+        if(userToUpdate== null) {
+            throw new IllegalStateException("User with ID " + userId + " does not exist");
+        }
+
+        int result = userDAO.updateUserById(userId, updatedUser);
+
+        return result;
     }
 
 }
