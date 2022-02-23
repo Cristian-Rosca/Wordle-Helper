@@ -48,14 +48,14 @@ public class UserServiceTest {
         System.out.println(expected);
     }
 
-
+//need to test exceptions for this!!!!
     @Test
     void canGetUserById () {
         // Given
         User user1 = new User(1,"user1","user1email", "user1name");
         User user2 = new User(2,"user2","user2email", "user2name");
         User user3 = new User(3,"user3","user3email", "user3name");
-        User user4 = new User(4,"user4","user4email", "user3name");
+        User user4 = new User(4,"user4","user4email", "user4name");
         List<User> userList = new ArrayList<>();
         userList.add(user1);
         userList.add(user2);
@@ -70,7 +70,25 @@ public class UserServiceTest {
         //Then
         User expected = user2;
         assertThat(actual).isEqualTo(expected);
+    }
 
+    @Test
+    void canThrowExceptionWhenGettingUserWithIdWhichDoesntExist () {
+        // Given
+        User user1 = new User(1,"user1","user1email", "user1name");
+        User user2 = new User(2,"user2","user2email", "user2name");
+        User user3 = new User(3,"user3","user3email", "user3name");
+        User user4 = new User(4,"user4","user4email", "user4name");
+        List<User> userList = new ArrayList<>();
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+        userList.add(user4);
+        given(userDAO.getAllUsers()).willReturn(userList);
+
+        assertThatThrownBy(() -> {
+            underTest.selectUserByID(20);}
+        ).hasMessage("User with ID 20 does not exist");
     }
 
 }
