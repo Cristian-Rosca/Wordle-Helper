@@ -36,7 +36,14 @@ public class AnswerDataAccessService implements AnswerDAO{
 
     @Override
     public Answer getAnswerById(Integer id) {
-        return null;
+        String sql = """
+                SELECT id, date_of_given_answer, actual_word, machine_guesses
+                FROM actual_answers
+                WHERE id=?
+                """;
+        Answer answerById = jdbcTemplate.query(sql, answerRowMapper, id).get(0);
+        return answerById;
+
     }
 
     @Override

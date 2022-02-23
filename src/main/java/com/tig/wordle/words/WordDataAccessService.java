@@ -68,6 +68,7 @@ public class WordDataAccessService implements WordDAO {
 
         Word wordById = jdbcTemplate.query(sql, wordRowMapper, id).get(0);
         return wordById;
+
     }
 
     @Override
