@@ -115,4 +115,17 @@ public class GameDataAccessService implements GameDAO {
         List<GameResults> gameResultsList = jdbcTemplate.query(sql, gameResultsRowMapper, Date.valueOf(date));
         return gameResultsList;
     }
+    public List<GameResults> getAllResultsForUser (String userName) {
+        String sql = """
+                SELECT actual_answers.actual_word, username, all_games.guesses_taken, actual_answers.machine_guesses 
+                FROM users
+                INNER JOIN all_games
+                ON users.id = all_games.user_id
+                INNER JOIN actual_answers
+                ON all_games.actual_answers_id = actual_answers.id
+                WHERE users.username = ?
+                """;
+        List<GameResults> gameResultsList = jdbcTemplate.query(sql, gameResultsRowMapper, userName);
+        return gameResultsList;
+    }
 }

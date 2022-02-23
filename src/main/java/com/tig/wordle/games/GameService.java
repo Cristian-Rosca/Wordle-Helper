@@ -50,4 +50,16 @@ public class GameService {
         }
         return userResults.get(0);
     }
+    public List<GameResults> getAllResultsVsMachineForUser(String userName){
+        return gameDAO.getAllResultsForUser(userName);
+    }
+    public Double getAverageGuessesForUser(String username){
+        List<GameResults> userResults = gameDAO.getAllResultsForUser(username);
+        Double average = 0.0;
+        for (int i = 0; i < userResults.size(); i++) {
+            average += userResults.get(i).getGuessesTaken();
+        }
+        average = average/userResults.size();
+        return average;
+    }
 }

@@ -81,5 +81,12 @@ public class GameController {
                                                              @PathVariable("username") String username) {
         return gameService.getUserResultForDay(Date.valueOf(date).toLocalDate(), username);
     }
-
+    @GetMapping(path = "results/{username}")
+    public List<GameResults> getUserResults(@PathVariable("username") String userName){
+        return gameService.getAllResultsVsMachineForUser(userName);
+    }
+    @GetMapping(path = "averageresults/{username}")
+    public Double getUserResultsAverage(@PathVariable("username") String userName){
+        return gameService.getAverageGuessesForUser(userName);
+    }
 }

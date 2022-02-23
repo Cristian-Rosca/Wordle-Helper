@@ -12,4 +12,5 @@ public interface GameDAO {
     Integer deleteGameById(Integer id);
     Integer updateGameById(Integer id, Game game);
     List<GameResults> getUserGuessVsMachineResultsListForDate (LocalDate date);
+    public List<GameResults> getAllResultsForUser (String userName);
 }
