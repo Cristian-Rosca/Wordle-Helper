@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public class AnswerService {
     private AnswerDAO answerDAO;
-    public AnswerService(@Qualifier("postgres") AnswerDAO answerDAO){
+    public AnswerService(@Qualifier("answer") AnswerDAO answerDAO){
         this.answerDAO = answerDAO;
     }
 

@@ -32,12 +32,28 @@ public class UserDataAccessService implements UserDAO{
 
     @Override
     public User getUserById(Integer id) {
-        return null;
+        String sql = """
+                SELECT id, name, email, username
+                FROM users where id=?
+                """;
+        User userById = jdbcTemplate.query(sql, userRowMapper, id).get(0);
+        return userById;
     }
 
     @Override
     public Integer addUserToTable(User user) {
-        return null;
+        String sql = """
+                INSERT INTO users(name, email, username)
+                VALUES(?,?,?)
+                """;
+
+        int rowsAffected = jdbcTemplate.update(
+                sql,
+                user.getName(),
+                user.getEmail(),
+                user.getUserName()
+        );
+        return rowsAffected;
     }
 
     @Override
