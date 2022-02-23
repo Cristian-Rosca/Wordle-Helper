@@ -35,12 +35,26 @@ public class GameDataAccessService implements GameDAO {
 
     @Override
     public Game getGameById(Integer id) {
-        return null;
+        String sql = """
+                SELECT id, user_id, actual_answers_id, guesses_taken
+                FROM all_games
+                WHERE id=?
+                """;
+        Game game = jdbcTemplate.query(sql, gameRowMapper, id).get(0);
+        return game;
     }
 
     @Override
     public Integer addGameToTable(Game game) {
-        return null;
+        String sql = """
+                INSERT INTO all_games (user_id, actual_answers_id, guesses_taken) 
+                VALUES (?, ?, ?)
+                """;
+        Integer rowsAffected = jdbcTemplate.update(sql,
+                game.getUserId(),
+                game.getAnswerId(),
+                game.getUserGuesses());
+        return rowsAffected;
     }
 
     @Override

@@ -14,4 +14,10 @@ public class GameService {
     public List<Game> getAllGames(){
         return gameDAO.getAllGames();
     }
+    public Game getGameById(Integer id){
+        return gameDAO.getGameById(id);
+    }
+    public Integer addGameToTable(Game game){
+        return gameDAO.addGameToTable(game);
+    }
 }

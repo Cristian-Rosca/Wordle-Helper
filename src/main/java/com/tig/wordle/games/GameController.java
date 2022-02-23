@@ -4,9 +4,7 @@ import com.tig.wordle.answers.AnswerService;
 import com.tig.wordle.user.UserService;
 import com.tig.wordle.words.WordService;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +28,13 @@ public class GameController {
     @GetMapping(path = "all")
     public List<Game> getAllGames(){
         return gameService.getAllGames();
+    }
+    @GetMapping(path = "{id}")
+    public Game getGameById(@PathVariable("id") Integer id){
+        return gameService.getGameById(id);
+    }
+    @PostMapping(path = "addgame")
+    public Integer addGameToTable(@RequestBody Game game){
+        return gameService.addGameToTable(game);
     }
 }
