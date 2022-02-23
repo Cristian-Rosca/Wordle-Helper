@@ -23,7 +23,7 @@ public class AnswerDataAccessService implements AnswerDAO{
     }
 
     @Override
-    public Integer addAnswerToTable(User user) {
+    public Integer addAnswerToTable(Answer answer) {
         return null;
     }
 
