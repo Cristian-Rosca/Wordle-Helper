@@ -43,9 +43,7 @@ public class UserServiceTest {
         List <User> expected = userList;
         assertThat(actual).isEqualTo(expected);
 
-        System.out.println(actual);
-        System.out.println("------");
-        System.out.println(expected);
+
     }
 
 //need to test exceptions for this!!!!

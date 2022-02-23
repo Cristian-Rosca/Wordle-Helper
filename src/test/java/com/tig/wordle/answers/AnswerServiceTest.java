@@ -53,6 +53,13 @@ public class AnswerServiceTest {
         Answer answer2 = new Answer(2, LocalDate.of(2019, 1, 21), "grass", 3);
         Answer answer3 = new Answer(3, LocalDate.of(2019, 1, 22), "horse", 4);
 
+        List<Answer> answerList = new ArrayList<>();
+        answerList.add(answer1);
+        answerList.add(answer2);
+        answerList.add(answer3);
+
+        given(answerDAO.getAllAnswers()).willReturn(answerList);
+
         // Given
         given(answerDAO.getAnswerById(2)).willReturn(answer2);
         // When
@@ -61,6 +68,27 @@ public class AnswerServiceTest {
         Answer expected = answer2;
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void canThrowExceptionWhenGettingAnswerById() {
+        // Create objects
+        Answer answer1 = new Answer(1, LocalDate.of(2019, 1, 20), "glass", 2);
+        Answer answer2 = new Answer(2, LocalDate.of(2019, 1, 21), "grass", 3);
+        Answer answer3 = new Answer(3, LocalDate.of(2019, 1, 22), "horse", 4);
+
+        List<Answer> answerList = new ArrayList<>();
+        answerList.add(answer1);
+        answerList.add(answer2);
+        answerList.add(answer3);
+
+        given(answerDAO.getAllAnswers()).willReturn(answerList);
+
+        assertThatThrownBy(() -> {
+            underTest.getAnswerById(20);}
+        ).hasMessage("Answer with ID 20 does not exist");
+
+    }
+
 
     @Test
     void addAnswerToTable() {

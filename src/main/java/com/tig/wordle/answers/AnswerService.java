@@ -1,5 +1,7 @@
 package com.tig.wordle.answers;
 
+import com.tig.wordle.user.User;
+import com.tig.wordle.user.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,18 @@ public class AnswerService {
         return answerDAO.getAllAnswers();
     }
 
+    public boolean doesAnswerWithIdExists(Integer id) {
+        return answerDAO
+                .getAllAnswers()
+                .stream()
+                .anyMatch(p -> p.getId().equals(id));  // returns boolean
+    }
+
     public Answer getAnswerById(Integer id){
+        boolean exists = doesAnswerWithIdExists(id);
+        if (exists == false) {
+            throw new AnswerNotFoundException("Answer with ID " + id + " does not exist");
+        }
         return answerDAO.getAnswerById(id);
     }
 
