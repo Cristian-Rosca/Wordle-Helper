@@ -33,7 +33,7 @@ public class AnswerDataAccessService implements AnswerDAO{
     }
 
     @Override
-    public Integer updateAnswerById(Integer id, User user) {
+    public Integer updateAnswerById(Integer id, Answer answer) {
         return null;
     }
 }

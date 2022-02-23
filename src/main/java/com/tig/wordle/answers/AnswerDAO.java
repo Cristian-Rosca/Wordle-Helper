@@ -9,5 +9,5 @@ public interface AnswerDAO {
     User getAnswerById(Integer id);
     Integer addAnswerToTable(Answer answer);
     Integer deleteAnswerById(Integer id);
-    Integer updateAnswerById(Integer id, User user);
+    Integer updateAnswerById(Integer id, Answer answer);
 }

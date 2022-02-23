@@ -33,3 +33,11 @@ CREATE TABLE actual_answers (
 -- Insert actual answers and respective dates data into actual answers table
 COPY actual_answers (date_of_given_answer, actual_word) FROM
 '/Users/suad/Downloads/date-word-answer.txt' DELIMITER ',' CSV;
+
+-- Create all games played table
+CREATE TABLE all_games (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
+    actual_answers_id INT REFERENCES actual_answers(id),
+    guesses_taken INT
+);
