@@ -19,9 +19,9 @@ COPY original_word_list (word, probability, score) FROM
 --Actual answers table--
 CREATE TABLE actual_answers (
     id SERIAL PRIMARY KEY,
-    date_of_given_answer date UNIQUE,
+    date_of_given_answer DATE UNIQUE,
     actual_word VARCHAR(5),
-    machine_guesses int
+    machine_guesses INT
 );
 
 COPY actual_answers (date_of_given_answer, actual_word) FROM
