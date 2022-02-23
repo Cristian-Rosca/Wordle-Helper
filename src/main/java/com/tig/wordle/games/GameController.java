@@ -55,9 +55,10 @@ public class GameController {
         // Placeholder for answers with machine scores computed
         Answer answerWithMachineGuesses;
         for (int i = 0; i < answerList.size(); i++){
-            if (answerList.get(i).getMachineResult() != null){
-                continue;
-            }
+//            todo: if statement below
+//            if (answerList.get(i).getMachineResult() != null){
+//                continue;
+//            }
             // Add machine guesses for answer
             answerWithMachineGuesses = wordService.getGuessesForAnswer(answerList.get(i));
             System.out.println("id " + answerWithMachineGuesses.getId()
