@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
-@Repository("postgres")
+@Repository("answers")
 public class AnswerDataAccessService implements AnswerDAO{
     private JdbcTemplate jdbcTemplate;
     private RowMapper<Answer> answerRowMapper = (rs, rowNum) -> {
@@ -15,7 +15,7 @@ public class AnswerDataAccessService implements AnswerDAO{
                 rs.getInt("id"),
                 rs.getDate("date_of_given_answer").toLocalDate(),
                 rs.getString("actual_word"),
-                rs.getInt("machine_guess")
+                rs.getInt("machine_guesses")
         );
         return answer;
     };
@@ -27,7 +27,7 @@ public class AnswerDataAccessService implements AnswerDAO{
     @Override
     public List<Answer> getAllAnswers() {
         String sql = """
-                SELECT id, date_of_given_answer, actual_word, machine_guess
+                SELECT id, date_of_given_answer, actual_word, machine_guesses
                 FROM actual_answers
                 """;
         List<Answer> answers = jdbcTemplate.query(sql, answerRowMapper);
