@@ -24,5 +24,5 @@ CREATE TABLE actual_answers (
     machine_guesses int
 );
 
-COPY actual_answers (dateOfGivenAnswer, actualword) FROM
+COPY actual_answers (date_of_given_answer, actual_word) FROM
 '/Users/suad/Downloads/date-word-answer.txt' DELIMITER ',' CSV;
