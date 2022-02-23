@@ -25,7 +25,7 @@ public class UserDataAccessService implements UserDAO{
     }
     @Override
     public List<User> getAllUsers() {
-        String sql = "SELECT id,name,email,username FROM users";
+        String sql = "SELECT id,name,email,username FROM users ORDER BY id";
         List <User> userList = jdbcTemplate.query(sql,userRowMapper);
         return userList;
     }

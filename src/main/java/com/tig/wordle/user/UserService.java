@@ -16,7 +16,7 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
-    // Created private method
+
     //this exception doesnt get thrown!
     private User confirmUserOrThrow(Integer userId) {
         User user = userDAO.getUserById(userId);
@@ -35,9 +35,13 @@ public class UserService {
     }
 
     public User selectUserByID(Integer userId) {
+        //atm this cannot be tested??
         if (userId == null){
             throw new IllegalStateException("ID cannot be null");
         }
+
+        //if id entered is not a number?
+
 
 //        throws exception if id entered doesnt exist
         boolean exists = doesUserWithIdExists(userId);
@@ -61,8 +65,13 @@ public class UserService {
 
 
     public Integer addUserToTable(User user) {
-        if(user.getName() != null && user.getUserName() != null && user.getEmail() != null) {
-            return userDAO.addUserToTable(user);
+        if(user.getName() != null
+                && user.getUserName() != null
+                && user.getEmail() != null
+                && user.getName() != ""
+                && user.getUserName() != ""
+                && user.getEmail() != "" ) {
+                return userDAO.addUserToTable(user);
         }
         else {
             throw new IllegalStateException("Invalid entry. Fields cannot be empty");
@@ -75,8 +84,8 @@ public class UserService {
         }
         User userToDelete = userDAO.getUserById(userId);
 
-        //this exception doesnt flag...? use other one (does user exist)
-        if(userToDelete== null) {
+        boolean exists = doesUserWithIdExists(userId);
+        if(exists==false) {
             throw new IllegalStateException("User with ID " + userId + " does not exist");
         }
 
