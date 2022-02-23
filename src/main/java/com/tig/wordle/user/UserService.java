@@ -56,7 +56,7 @@ public class UserService {
                 return userDAO.addUserToTable(user);
         }
         else {
-            throw new IllegalStateException("Invalid entry. Fields cannot be empty");
+            throw new InputMissingException("Invalid entry. Fields cannot be empty");
         }
     }
 
@@ -79,19 +79,21 @@ public class UserService {
 
 //Better validations!!! check that all fields are entered
     public Integer updateUserByID(Integer userId, User updatedUser) {
-        if (userId == null){
-            throw new IllegalStateException("Id cannot be null");
-        }
-        User userToUpdate = userDAO.getUserById(userId);
-
-        //this exception doesnt flag...? use other one (does user exist)
-        if(userToUpdate== null) {
+        boolean exists = doesUserWithIdExists(userId);
+        if(exists==false) {
             throw new IllegalStateException("User with ID " + userId + " does not exist");
         }
 
-        int result = userDAO.updateUserById(userId, updatedUser);
+        if (updatedUser.getName() != null
+                && updatedUser.getEmail() != null
+                && updatedUser.getUserName() != null
+                && updatedUser.getName() != ""
+                && updatedUser.getEmail() != ""
+                && updatedUser.getUserName() != "") {
+            return userDAO.updateUserById(userId,updatedUser);
+        }
+        else throw new InputMissingException("Invalid entry. Fields cannot be empty");
 
-        return result;
     }
 
 }
