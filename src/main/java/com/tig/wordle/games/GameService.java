@@ -3,6 +3,7 @@ package com.tig.wordle.games;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,5 +32,9 @@ public class GameService {
             throw new GameNotFoundException("No game with this id exists");
         }
         return gameDAO.updateGameById(id, game);
+    }
+
+    public List<GameResults> getAllResultsVsMachineForDate (LocalDate date) {
+        return gameDAO.getUserGuessVsMachineResultsListForDate(date);
     }
 }

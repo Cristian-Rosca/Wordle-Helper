@@ -7,6 +7,8 @@ import com.tig.wordle.words.WordService;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -68,6 +70,11 @@ public class GameController {
             answerService.updateAnswerById(answerWithMachineGuesses.getId(),
                     answerWithMachineGuesses);
         }
+    }
+
+    @GetMapping(path = "dailyresults/{date}")
+    public List <GameResults> getAllResultsVsMachineForDate (@PathVariable("date") String date) {
+        return gameService.getAllResultsVsMachineForDate(Date.valueOf(date).toLocalDate());
     }
 
 }

@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository("games")
@@ -19,6 +21,18 @@ public class GameDataAccessService implements GameDAO {
         );
         return game;
     };
+
+    private RowMapper<GameResults> gameResultsRowMapper = (rs, rowNum) -> {
+        GameResults gameResults = new GameResults(
+                rs.getString("actual_word"),
+                rs.getString("username"),
+                rs.getInt("guesses_taken"),
+                rs.getInt("machine_guesses")
+        );
+        return gameResults;
+    };
+
+
     GameDataAccessService(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -86,5 +100,19 @@ public class GameDataAccessService implements GameDAO {
                 game.getUserGuesses(),
                 id);
         return rowsAffected;
+    }
+
+    public List<GameResults> getUserGuessVsMachineResultsListForDate (LocalDate date) {
+        String sql = """
+                SELECT actual_answers.actual_word, username, all_games.guesses_taken, actual_answers.machine_guesses 
+                FROM users
+                INNER JOIN all_games
+                ON users.id = all_games.user_id
+                INNER JOIN actual_answers
+                ON all_games.actual_answers_id = actual_answers.id
+                WHERE actual_answers.date_of_given_answer = ?
+                """;
+        List<GameResults> gameResultsList = jdbcTemplate.query(sql, gameResultsRowMapper, Date.valueOf(date));
+        return gameResultsList;
     }
 }
