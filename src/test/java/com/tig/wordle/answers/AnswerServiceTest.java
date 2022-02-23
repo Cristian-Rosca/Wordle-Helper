@@ -124,6 +124,31 @@ public class AnswerServiceTest {
 
     @Test
     void deleteAnswerById() {
+        // Given
+        // Create objects
+        Answer answer1 = new Answer(1, LocalDate.of(2019, 1, 20), "glass", 2);
+        Answer answer2 = new Answer(2, LocalDate.of(2019, 1, 21), "grass", 3);
+        Answer answer3 = new Answer(3, LocalDate.of(2019, 1, 22), "horse", 4);
+
+        // Placeholder for list
+        List<Answer> answerList = new ArrayList<>();
+        // Add to list
+        answerList.add(answer1);
+        answerList.add(answer2);
+        answerList.add(answer3);
+
+        given(answerDAO.getAllAnswers()).willReturn(answerList);
+
+        given(answerDAO.getAnswerById(1)).willReturn(answer1);
+
+        given(answerDAO.deleteAnswerById(1)).willReturn(1);
+
+        // When
+        Integer actual = underTest.deleteAnswerById(1);
+
+        // Then
+        Integer expected = 1;
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test

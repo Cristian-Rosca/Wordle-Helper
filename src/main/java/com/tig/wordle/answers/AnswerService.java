@@ -22,7 +22,7 @@ public class AnswerService {
         return answerDAO.getAllAnswers();
     }
 
-    public boolean doesAnswerWithIdExists(Integer id) {
+    public Boolean doesAnswerWithIdExists(Integer id) {
         return answerDAO
                 .getAllAnswers()
                 .stream()
