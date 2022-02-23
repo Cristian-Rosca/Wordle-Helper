@@ -24,4 +24,8 @@ public class AnswerController {
     public Integer addAnswerToTable (@RequestBody Answer answer) {
         return answerService.addAnswerToTable(answer);
     }
+    @DeleteMapping (path = "deleteAnswerById/{id}")
+    public Integer deleteAnswerById (@PathVariable("id") Integer id) {
+        return answerService.deleteAnswerById(id);
+    }
 }

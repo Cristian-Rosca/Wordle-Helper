@@ -17,9 +17,16 @@ public class AnswerService {
         return answerDAO.getAllAnswers();
     }
 
-    public Answer getAnswerById(Integer id){return answerDAO.getAnswerById(id); }
+    public Answer getAnswerById(Integer id){
+        return answerDAO.getAnswerById(id); }
 
     public Integer addAnswerToTable(Answer answer){
         return answerDAO.addAnswerToTable(answer);
+
+    }
+
+    public Integer deleteAnswerById(Integer id) {
+        return answerDAO.deleteAnswerById(id);
+
     }
 }

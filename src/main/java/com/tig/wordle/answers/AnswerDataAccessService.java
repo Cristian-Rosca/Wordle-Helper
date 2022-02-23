@@ -58,7 +58,13 @@ public class AnswerDataAccessService implements AnswerDAO{
 
     @Override
     public Integer deleteAnswerById(Integer id) {
-        return null;
+        String sql = """
+                DELETE FROM actual_answers 
+                WHERE id=?
+                """;
+        Integer rowsAffected = jdbcTemplate.update(sql,id);
+        return rowsAffected;
+
     }
 
     @Override
