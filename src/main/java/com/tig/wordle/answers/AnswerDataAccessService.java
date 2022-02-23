@@ -25,12 +25,17 @@ public class AnswerDataAccessService implements AnswerDAO{
     }
 
     @Override
-    public List<User> getAllAnswers() {
-        return null;
+    public List<Answer> getAllAnswers() {
+        String sql = """
+                SELECT id, date_of_given_answer, actual_word, machine_guess
+                FROM actual_answers
+                """;
+        List<Answer> answers = jdbcTemplate.query(sql, answerRowMapper);
+        return answers;
     }
 
     @Override
-    public User getAnswerById(Integer id) {
+    public Answer getAnswerById(Integer id) {
         return null;
     }
 
