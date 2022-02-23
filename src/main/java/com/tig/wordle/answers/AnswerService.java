@@ -26,10 +26,16 @@ public class AnswerService {
     }
 
     public Integer deleteAnswerById(Integer id) {
+        if (getAnswerById(id) == null){
+            throw new AnswerNotFoundException("No answer with given id exists");
+        }
         return answerDAO.deleteAnswerById(id);
     }
 
     public Integer updateAnswerById(Integer id, Answer answer) {
+        if (getAnswerById(id) == null){
+            throw new AnswerNotFoundException("No answer with given id exists");
+        }
         return answerDAO.updateAnswerById(id, answer);
     }
 }
