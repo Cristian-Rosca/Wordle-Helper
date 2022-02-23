@@ -37,4 +37,13 @@ public class GameController {
     public Integer addGameToTable(@RequestBody Game game){
         return gameService.addGameToTable(game);
     }
+    @DeleteMapping(path = "{id}")
+    public Integer deleteGameById(@PathVariable("id") Integer id){
+        return gameService.deleteGameById(id);
+    }
+    @PutMapping(path = "{id}")
+    public Integer updateGameById(@PathVariable("id") Integer id,
+                                  @RequestBody Game game){
+        return gameService.updateGameById(id, game);
+    }
 }

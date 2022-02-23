@@ -40,7 +40,13 @@ public class GameDataAccessService implements GameDAO {
                 FROM all_games
                 WHERE id=?
                 """;
-        Game game = jdbcTemplate.query(sql, gameRowMapper, id).get(0);
+        List<Game> gameList = jdbcTemplate.query(sql, gameRowMapper, id);
+        Game game;
+        if (gameList.isEmpty()){
+            game = null;
+        } else {
+            game = gameList.get(0);
+        }
         return game;
     }
 
@@ -59,11 +65,26 @@ public class GameDataAccessService implements GameDAO {
 
     @Override
     public Integer deleteGameById(Integer id) {
-        return null;
+        String sql = """
+                DELETE FROM all_games
+                WHERE id = ?
+                """;
+        Integer rowsAffected = jdbcTemplate.update(sql, id);
+        return rowsAffected;
     }
 
     @Override
     public Integer updateGameById(Integer id, Game game) {
-        return null;
+        String sql = """
+                UPDATE all_games 
+                SET (user_id, actual_answers_id, guesses_taken) = (?, ?, ?)
+                WHERE id = ?
+                """;
+        Integer rowsAffected = jdbcTemplate.update(sql,
+                game.getUserId(),
+                game.getAnswerId(),
+                game.getUserGuesses(),
+                id);
+        return rowsAffected;
     }
 }

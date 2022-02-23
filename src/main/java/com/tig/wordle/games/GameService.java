@@ -20,4 +20,16 @@ public class GameService {
     public Integer addGameToTable(Game game){
         return gameDAO.addGameToTable(game);
     }
+    public Integer deleteGameById(Integer id){
+        if (gameDAO.getGameById(id) == null){
+            throw new GameNotFoundException("No game with this id exists");
+        }
+        return gameDAO.deleteGameById(id);
+    }
+    public Integer updateGameById(Integer id, Game game){
+        if (gameDAO.getGameById(id) == null){
+            throw new GameNotFoundException("No game with this id exists");
+        }
+        return gameDAO.updateGameById(id, game);
+    }
 }
