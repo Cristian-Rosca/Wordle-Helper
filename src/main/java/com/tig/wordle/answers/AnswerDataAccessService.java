@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Repository("answer")
-public class AnswerDataAccessService implements AnswerDAO {
+public class AnswerDataAccessService implements AnswerDAO{
     private JdbcTemplate jdbcTemplate;
     private RowMapper<Answer> answerRowMapper = (rs, rowNum) -> {
         Answer answer = new Answer(

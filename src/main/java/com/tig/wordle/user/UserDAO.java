@@ -7,5 +7,5 @@ public interface UserDAO {
     User getUserById(Integer id);
     Integer addUserToTable(User user);
     Integer deleteUserById(Integer id);
-    Integer updateUserById(Integer id, User user);
+    Integer updateUserById(Integer userId, User updatedUser);
 }
