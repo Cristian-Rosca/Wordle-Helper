@@ -72,10 +72,10 @@ public class AnswerDataAccessService implements AnswerDAO{
     public Integer updateAnswerById(Integer id, Answer answer) {
         String sql = """
                 UPDATE actual_answers
-                SET (date_of_given_answer, actual_word, machine_guesses) = (?, ?, ?)
+                SET (actual_word, machine_guesses) = (?, ?)
                 WHERE id=?
                 """;
-        Integer rowsAffected = jdbcTemplate.update(sql, Date.valueOf(answer.getDateOfAnswer()), answer.getAnswerOfDay(), answer.getMachineResult(), id);
+        Integer rowsAffected = jdbcTemplate.update(sql, answer.getAnswerOfDay(), answer.getMachineResult(), id);
         return rowsAffected;
     }
 }

@@ -33,6 +33,7 @@ public class AnswerServiceTest {
 
         // Placeholder for list
         List<Answer> answerList = new ArrayList<>();
+        // Add to list
         answerList.add(answer1);
         answerList.add(answer2);
         answerList.add(answer3);
@@ -89,9 +90,36 @@ public class AnswerServiceTest {
 
     }
 
-
+    // Test Exception for this, if time!
     @Test
     void addAnswerToTable() {
+        // Create objects
+        Answer answer1 = new Answer(1, LocalDate.of(2019, 1, 20), "glass", 2);
+        Answer answer2 = new Answer(2, LocalDate.of(2019, 1, 21), "grass", 3);
+        Answer answer3 = new Answer(3, LocalDate.of(2019, 1, 22), "horse", 4);
+
+        // Placeholder for list
+        List<Answer> answerList = new ArrayList<>();
+        // Add to list
+        answerList.add(answer1);
+        answerList.add(answer2);
+        answerList.add(answer3);
+
+        // New answer object
+        Answer answer4 = new Answer(4, LocalDate.of(2019, 1, 23), "gloss", 5);
+//        List<Answer> answerListWhenAdded = new ArrayList<>();
+//        answerListWhenAdded.add(answer1);
+//        answerListWhenAdded.add(answer2);
+//        answerListWhenAdded.add(answer3);
+//        answerListWhenAdded.add(answer3);
+
+        // Given
+        given(answerDAO.addAnswerToTable(answer4)).willReturn(1);
+        // When
+        Integer actual = underTest.addAnswerToTable(answer4);
+        // Then
+        Integer expected = 1;
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
