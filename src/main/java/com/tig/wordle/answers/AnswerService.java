@@ -18,15 +18,18 @@ public class AnswerService {
     }
 
     public Answer getAnswerById(Integer id){
-        return answerDAO.getAnswerById(id); }
+        return answerDAO.getAnswerById(id);
+    }
 
     public Integer addAnswerToTable(Answer answer){
         return answerDAO.addAnswerToTable(answer);
-
     }
 
     public Integer deleteAnswerById(Integer id) {
         return answerDAO.deleteAnswerById(id);
+    }
 
+    public Integer updateAnswerById(Integer id, Answer answer) {
+        return answerDAO.updateAnswerById(id, answer);
     }
 }

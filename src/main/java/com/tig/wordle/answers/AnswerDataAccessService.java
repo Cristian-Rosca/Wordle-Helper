@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
+
 @Repository("answers")
-public class AnswerDataAccessService implements AnswerDAO{
+public class AnswerDataAccessService implements AnswerDAO {
     private JdbcTemplate jdbcTemplate;
     private RowMapper<Answer> answerRowMapper = (rs, rowNum) -> {
         Answer answer = new Answer(
@@ -20,7 +21,7 @@ public class AnswerDataAccessService implements AnswerDAO{
         return answer;
     };
 
-    public AnswerDataAccessService(JdbcTemplate jdbcTemplate){
+    public AnswerDataAccessService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -62,13 +63,19 @@ public class AnswerDataAccessService implements AnswerDAO{
                 DELETE FROM actual_answers 
                 WHERE id=?
                 """;
-        Integer rowsAffected = jdbcTemplate.update(sql,id);
+        Integer rowsAffected = jdbcTemplate.update(sql, id);
         return rowsAffected;
 
     }
 
     @Override
     public Integer updateAnswerById(Integer id, Answer answer) {
-        return null;
+        String sql = """
+                UPDATE actual_answers
+                SET (date_of_given_answer, actual_word, machine_guesses) = (?, ?, ?)
+                WHERE id=?
+                """;
+        Integer rowsAffected = jdbcTemplate.update(sql, Date.valueOf(answer.getDateOfAnswer()), answer.getAnswerOfDay(), answer.getMachineResult(), id);
+        return rowsAffected;
     }
 }

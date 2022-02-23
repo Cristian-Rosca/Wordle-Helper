@@ -28,4 +28,8 @@ public class AnswerController {
     public Integer deleteAnswerById (@PathVariable("id") Integer id) {
         return answerService.deleteAnswerById(id);
     }
+    @PutMapping (path = "updateAnswerById/{id}")
+    public Integer updateAnswerById(@PathVariable("id") Integer id, @RequestBody Answer answerUpdate) {
+        return answerService.updateAnswerById(id, answerUpdate);
+    }
 }
