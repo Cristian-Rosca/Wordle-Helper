@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class AnswerService {
     private AnswerDAO answerDAO;
-    public AnswerService(@Qualifier("answers") AnswerDAO answerDAO){
+    public AnswerService(@Qualifier("answer") AnswerDAO answerDAO){
         this.answerDAO = answerDAO;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.util.List;
 
-@Repository("answers")
+@Repository("answer")
 public class AnswerDataAccessService implements AnswerDAO {
     private JdbcTemplate jdbcTemplate;
     private RowMapper<Answer> answerRowMapper = (rs, rowNum) -> {
