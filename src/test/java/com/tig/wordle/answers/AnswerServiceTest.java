@@ -48,6 +48,18 @@ public class AnswerServiceTest {
 
     @Test
     void getAnswerById() {
+        // Create objects
+        Answer answer1 = new Answer(1, LocalDate.of(2019, 1, 20), "glass", 2);
+        Answer answer2 = new Answer(2, LocalDate.of(2019, 1, 21), "grass", 3);
+        Answer answer3 = new Answer(3, LocalDate.of(2019, 1, 22), "horse", 4);
+
+        // Given
+        given(answerDAO.getAnswerById(2)).willReturn(answer2);
+        // When
+        Answer actual = underTest.getAnswerById(2);
+        // Then
+        Answer expected = answer2;
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
