@@ -48,7 +48,12 @@ public class AnswerDataAccessService implements AnswerDAO{
 
     @Override
     public Integer addAnswerToTable(Answer answer) {
-        return null;
+        String sql = """
+                INSERT INTO actual_answers(date_of_given_answer, actual_word, machine_guesses) VALUES
+                (?, ?, ?)
+                """;
+        Integer rowsAffected = jdbcTemplate.update(sql, Date.valueOf(answer.getDateOfAnswer()), answer.getAnswerOfDay(), answer.getMachineResult());
+        return rowsAffected;
     }
 
     @Override
