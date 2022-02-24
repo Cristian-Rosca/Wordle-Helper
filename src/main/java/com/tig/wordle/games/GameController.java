@@ -3,13 +3,16 @@ package com.tig.wordle.games;
 import com.tig.wordle.answers.Answer;
 import com.tig.wordle.answers.AnswerService;
 import com.tig.wordle.user.UserService;
+import com.tig.wordle.words.Word;
 import com.tig.wordle.words.WordService;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.sql.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("game")
@@ -18,6 +21,9 @@ public class GameController {
     private UserService userService;
     private WordService wordService;
     private AnswerService answerService;
+    private LinkedHashMap<Integer, Answer> answersOfDay;
+    private LinkedHashMap<Integer, List<Word>> gameWordLists;
+    private LinkedHashMap<Integer, Integer> userGuesses;
 
     public GameController(GameService gameService,
                           UserService userService,
@@ -27,6 +33,9 @@ public class GameController {
         this.userService = userService;
         this.wordService = wordService;
         this.answerService = answerService;
+        this.answersOfDay = new LinkedHashMap<>();
+        this.gameWordLists = new LinkedHashMap<>();
+        this.userGuesses = new LinkedHashMap<>();
     }
     @GetMapping(path = "all")
     public List<Game> getAllGames(){
@@ -89,4 +98,54 @@ public class GameController {
     public Double getUserResultsAverage(@PathVariable("username") String userName){
         return gameService.getAverageGuessesForUser(userName);
     }
+
+    @GetMapping(path = "startgame/{userId}")
+    public List<Word> startUserGame(@PathVariable("userId") Integer userId){
+        // Get list of answers
+        List<Answer> allAnswers = answerService.getAllAnswers();
+        // Get today's answer
+        Answer answerToday = allAnswers.stream()
+                .filter(answer -> answer.getDateOfAnswer().equals(LocalDate.now()))
+                .collect(Collectors.toList()).get(0);
+        // Track progression of game
+        this.answersOfDay.put(userId, answerToday);
+        this.gameWordLists.put(userId, wordService.getAllWords());
+        this.userGuesses.put(userId, 0);
+
+        return gameWordLists.get(userId);
+    }
+    @DeleteMapping(path = "{userid}/guess/{guess}")
+    public List<Word> executeUserGuess(@PathVariable("userid") Integer userId,
+                                       @PathVariable("guess") String guess){
+        // Get our guess from the list
+        Word guessWord = gameWordLists.get(userId).stream()
+                .filter(wordInList -> wordInList.getWord().equals(guess))
+                .collect(Collectors.toList()).get(0);
+        // Get equivalent Word object for answer
+        Word wordAnswer = wordService.getWordByName(answersOfDay.get(userId).getAnswerOfDay());
+        // Get pattern for guess
+        LinkedHashMap<String, String> pattern = wordService.generateWordPattern(guessWord, wordAnswer);
+        // Reduce game list
+        this.gameWordLists.put(userId, wordService.findMatchingWords(guessWord, gameWordLists.get(userId), pattern));
+        // Update user guesses
+        this.userGuesses.put(userId, userGuesses.get(userId) + 1);
+        return gameWordLists.get(userId);
+    }
+
+    @PostMapping(path = "endgame/{userid}")
+    public Integer submitUserGameScore(@PathVariable("userid") Integer userId){
+        // Create game object
+        Game gameEntry = new Game();
+        gameEntry.setUserId(userId);
+        gameEntry.setAnswerId(answersOfDay.get(userId).getId());
+        gameEntry.setUserGuesses(userGuesses.get(userId));
+        // Post score
+        Integer rowsAffected = gameService.addGameToTable(gameEntry);
+        // Clear game entries
+        this.answersOfDay.remove(userId);
+        this.gameWordLists.remove(userId);
+        this.userGuesses.remove(userId);
+        return rowsAffected;
+    }
+
 }
