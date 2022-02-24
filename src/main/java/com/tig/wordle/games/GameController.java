@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("game")
+@RequestMapping("competitive")
 public class GameController {
     private GameService gameService;
     private UserService userService;
@@ -37,23 +37,23 @@ public class GameController {
         this.gameWordLists = new LinkedHashMap<>();
         this.userGuesses = new LinkedHashMap<>();
     }
-    @GetMapping(path = "all")
+    @GetMapping("all")
     public List<Game> getAllGames(){
         return gameService.getAllGames();
     }
-    @GetMapping(path = "{id}")
+    @GetMapping("{id}")
     public Game getGameById(@PathVariable("id") Integer id){
         return gameService.getGameById(id);
     }
-    @PostMapping(path = "addgame")
+    @PostMapping("addgame")
     public Integer addGameToTable(@RequestBody Game game){
         return gameService.addGameToTable(game);
     }
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping("{id}")
     public Integer deleteGameById(@PathVariable("id") Integer id){
         return gameService.deleteGameById(id);
     }
-    @PutMapping(path = "{id}")
+    @PutMapping("{id}")
     public Integer updateGameById(@PathVariable("id") Integer id,
                                   @RequestBody Game game){
         return gameService.updateGameById(id, game);
@@ -66,10 +66,6 @@ public class GameController {
         // Placeholder for answers with machine scores computed
         Answer answerWithMachineGuesses;
         for (int i = 0; i < answerList.size(); i++){
-//            todo: if statement below
-//            if (answerList.get(i).getMachineResult() != null){
-//                continue;
-//            }
             // Add machine guesses for answer
             answerWithMachineGuesses = wordService.getGuessesForAnswer(answerList.get(i));
             System.out.println("id " + answerWithMachineGuesses.getId()
@@ -81,11 +77,11 @@ public class GameController {
         }
     }
 
-    @GetMapping(path = "dailyresults/{date}")
+    @GetMapping(path = "results/{date}")
     public List <GameResults> getAllResultsVsMachineForDate (@PathVariable("date") String date) {
         return gameService.getAllResultsVsMachineForDate(Date.valueOf(date).toLocalDate());
     }
-    @GetMapping(path = "dailyresults/{date}/{username}")
+    @GetMapping(path = "results/{username}/{date}")
     public GameResults getResultForGivenUserVsMachineForDate (@PathVariable("date") String date,
                                                              @PathVariable("username") String username) {
         return gameService.getUserResultForDay(Date.valueOf(date).toLocalDate(), username);
@@ -99,7 +95,7 @@ public class GameController {
         return gameService.getAverageGuessesForUser(userName);
     }
 
-    @GetMapping(path = "startgame/{userId}")
+    @GetMapping(path = "start/{userId}")
     public List<Word> startUserGame(@PathVariable("userId") Integer userId){
         // Get list of answers
         List<Answer> allAnswers = answerService.getAllAnswers();
@@ -114,7 +110,7 @@ public class GameController {
 
         return gameWordLists.get(userId);
     }
-    @DeleteMapping(path = "{userid}/guess/{guess}")
+    @DeleteMapping(path = "start/{userid}/{guess}")
     public List<Word> executeUserGuess(@PathVariable("userid") Integer userId,
                                        @PathVariable("guess") String guess){
         // Get our guess from the list
@@ -132,7 +128,7 @@ public class GameController {
         return gameWordLists.get(userId);
     }
 
-    @PostMapping(path = "endgame/{userid}")
+    @PostMapping(path = "start/{userid}/end")
     public Integer submitUserGameScore(@PathVariable("userid") Integer userId){
         // Create game object
         Game gameEntry = new Game();

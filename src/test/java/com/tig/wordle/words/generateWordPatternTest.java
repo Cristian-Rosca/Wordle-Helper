@@ -64,7 +64,7 @@ class generateWordPatternTest {
         String actualLabelAtIndex3 = actual.get("e3");
 
         // Then
-        String expected = "orange";
+        String expected = "yellow";
 
         assertThat(actualLabelAtIndex1).isEqualTo(expected);
         assertThat(actualLabelAtIndex3).isEqualTo(expected);

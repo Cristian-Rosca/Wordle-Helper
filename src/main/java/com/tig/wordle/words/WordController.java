@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("getwords")
+@RequestMapping("helper")
 public class WordController {
 
     private WordService wordService;
@@ -43,13 +43,13 @@ public class WordController {
         return wordService.getWordByName(nameOfWord);
     }
 
-    @GetMapping("game/start")
+    @GetMapping("start")
     public List <Word> startGame() {
         this.gameList = wordService.getAllWordsRankedByScore();
         return gameList;
     }
 
-    @DeleteMapping("game/guess/{word}")
+    @DeleteMapping("start/{word}")
     public List <Word> guessWord(@PathVariable("word") String word,
                                  @RequestBody LinkedHashMap<String, String> pattern){
 
@@ -73,6 +73,8 @@ public class WordController {
         return gameList;
     }
 
+
+    // this was an extra step, can be used for development later. currently included in delete request
 //    @PutMapping("game/updatescores")
 //    public List <Word> updateScores(){
 //        // Update probabilities and scores
@@ -85,7 +87,7 @@ public class WordController {
 //        return gameList;
 //    }
 
-    @DeleteMapping("game/endgame")
+    @DeleteMapping("endgame")
     public List<Word> endGame(){
         this.gameList.clear();
         return gameList;

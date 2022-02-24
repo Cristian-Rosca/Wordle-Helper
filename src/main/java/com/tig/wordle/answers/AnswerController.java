@@ -16,19 +16,19 @@ public class AnswerController {
     public List<Answer> getAllAnswers(){
         return answerService.getAllAnswers();
     }
-    @GetMapping (path = "getAnswerById/{id}")
+    @GetMapping (path = "{id}")
     public Answer getAnswerById (@PathVariable("id") Integer id){
         return answerService.getAnswerById(id);
     }
-    @PostMapping (path = "addAnswerToTable")
+    @PostMapping (path = "addanswer")
     public Integer addAnswerToTable (@RequestBody Answer answer) {
         return answerService.addAnswerToTable(answer);
     }
-    @DeleteMapping (path = "deleteAnswerById/{id}")
+    @DeleteMapping (path = "{id}")
     public Integer deleteAnswerById (@PathVariable("id") Integer id) {
         return answerService.deleteAnswerById(id);
     }
-    @PutMapping (path = "updateAnswerById/{id}")
+    @PutMapping (path = "update/{id}")
     public Integer updateAnswerById(@PathVariable("id") Integer id, @RequestBody Answer answerUpdate) {
         return answerService.updateAnswerById(id, answerUpdate);
     }

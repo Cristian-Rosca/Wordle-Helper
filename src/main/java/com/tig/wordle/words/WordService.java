@@ -92,7 +92,7 @@ public class WordService {
                 for (int j = 0; j < lettersInTarget.length; j++) {
                     if (lettersInWord[i] == lettersInTarget[j]) {
                         // Set this letter to orange in the pattern
-                        pattern.put(String.valueOf(lettersInWord[i]) + i, "orange");
+                        pattern.put(String.valueOf(lettersInWord[i]) + i, "yellow");
                         // Indicate these letters are spent
                         lettersInWord[i] = null;
                         lettersInTarget[j] = null;
