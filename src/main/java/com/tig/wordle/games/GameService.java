@@ -1,5 +1,6 @@
 package com.tig.wordle.games;
 
+import com.tig.wordle.answers.AnswerNotFoundException;
 import com.tig.wordle.user.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,29 @@ public class GameService {
     public GameService(@Qualifier("games") GameDAO gameDAO){
         this.gameDAO = gameDAO;
     }
+
     public List<Game> getAllGames(){
         if(gameDAO.getAllGames().size() == 0) {
             throw new GameNotFoundException("No games found");
         }
         return gameDAO.getAllGames();
     }
+
+    public Boolean doesGameWithIdExists(Integer id) {
+        return gameDAO
+                .getAllGames()
+                .stream()
+                .anyMatch(p -> p.getId().equals(id));  // returns boolean
+    }
+
     public Game getGameById(Integer id){
+        boolean exists = doesGameWithIdExists(id);
+        if (exists == false) {
+            throw new GameNotFoundException("Game with ID " + id + " does not exist");
+        }
         return gameDAO.getGameById(id);
     }
+
     public Integer addGameToTable(Game game){
         if(game.getUserId() != null
         && game.getAnswerId()!= null
