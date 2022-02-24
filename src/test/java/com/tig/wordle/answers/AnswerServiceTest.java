@@ -162,6 +162,26 @@ public class AnswerServiceTest {
     }
 
     @Test
+    void canThrowExceptionWhenDeletingAnswerById() {
+        // Create objects
+        Answer answer1 = new Answer(1, LocalDate.of(2019, 1, 20), "glass", 2);
+        Answer answer2 = new Answer(2, LocalDate.of(2019, 1, 21), "grass", 3);
+        Answer answer3 = new Answer(3, LocalDate.of(2019, 1, 22), "horse", 4);
+
+        List<Answer> answerList = new ArrayList<>();
+        answerList.add(answer1);
+        answerList.add(answer2);
+        answerList.add(answer3);
+
+        given(answerDAO.getAllAnswers()).willReturn(answerList);
+
+        assertThatThrownBy(() -> {
+            underTest.deleteAnswerById(4);}
+        ).hasMessage("Answer with ID 4 does not exist");
+
+    }
+
+    @Test
     void updateAnswerById() {
         // Given
         // Create objects
@@ -188,11 +208,42 @@ public class AnswerServiceTest {
         assertThat(actual).isEqualTo(expected);
     }
 
-//    public Integer updateAnswerById(Integer id, Answer answer) {
-//        if (getAnswerById(id) == null){
-//            throw new AnswerNotFoundException("No answer with given id exists");
-//        }
-//        return answerDAO.updateAnswerById(id, answer);
-//    }
+    @Test
+    void canThrowIDExceptionWhenUpdatingAnswerById() {
+        // Create objects
+        Answer answer1 = new Answer(1, LocalDate.of(2019, 1, 20), "glass", 2);
+        Answer answer2 = new Answer(2, LocalDate.of(2019, 1, 22), "horse", 4);
+
+        List<Answer> answerList = new ArrayList<>();
+        answerList.add(answer1);
+        answerList.add(answer2);
+
+        Answer updatedanswer = new Answer(2, LocalDate.of(2019, 1, 21), "grass", 3);
+        given(answerDAO.getAllAnswers()).willReturn(answerList);
+
+        assertThatThrownBy(() -> {
+            underTest.updateAnswerById(4, updatedanswer);}
+        ).hasMessage("Answer with ID 4 does not exist");
+
+    }
+
+    @Test
+    void canThrowMissingFieldsExceptionWhenUpdatingAnswerById() {
+        // Create objects
+        Answer answer1 = new Answer(1, LocalDate.of(2019, 1, 20), "glass", 2);
+        Answer answer2 = new Answer(2, LocalDate.of(2019, 1, 22), "horse", 4);
+
+        List<Answer> answerList = new ArrayList<>();
+        answerList.add(answer1);
+        answerList.add(answer2);
+
+        Answer updatedanswer = new Answer(2, LocalDate.of(2019, 1, 21), "", 3);
+        given(answerDAO.getAllAnswers()).willReturn(answerList);
+
+        assertThatThrownBy(() -> {
+            underTest.updateAnswerById(1, updatedanswer);}
+        ).hasMessage("Invalid entry. Fields cannot be empty");
+
+    }
 }
 
