@@ -37,10 +37,10 @@ public class computePatternProbabilityTest {
         wordList.add(guess3);
         wordList.add(guess4);
         LinkedHashMap<String, String> pattern = new LinkedHashMap<>();
-        pattern.put("r0", "orange");
+        pattern.put("r0", "yellow");
         pattern.put("a1", "grey");
         pattern.put("v2", "grey");
-        pattern.put("e3", "orange");
+        pattern.put("e3", "yellow");
         pattern.put("n4", "grey");
         // When
         Double actual = underTest.computePatternProbability(guess3, wordList, pattern);

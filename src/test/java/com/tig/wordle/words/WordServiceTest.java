@@ -1,5 +1,6 @@
 package com.tig.wordle.words;
 
+import com.tig.wordle.answers.Answer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -175,5 +176,29 @@ public class WordServiceTest {
             // When
             underTest.wordValidator(testString);}
         ).hasMessage("Invalid Entry. Word is not in word list");
+    }
+
+    //check test - why doesnt it work for bonds/anger but works for birds??
+    @Test
+    void testCanGetGuessesForAnswer(){
+        // Given
+        Answer answerTest = new Answer();
+        answerTest.setAnswerOfDay("anger");
+        List<Word> mockWordList = new ArrayList<>();
+        Word mockWord3 = new Word(1, "anger", 0.25, 1.5);
+        Word mockWord4 = new Word(2, "troll", 0.25, 1.5);
+        Word mockWord2 = new Word(3, "birds", 0.25, 1.5);
+        Word mockWord1 = new Word(4, "bonds", 0.25, 2.0);
+        mockWordList.add(mockWord1);
+        mockWordList.add(mockWord2);
+        mockWordList.add(mockWord3);
+        mockWordList.add(mockWord4);
+        given(wordDAO.selectAllWordsRankedByScore()).willReturn(mockWordList);
+        given(wordDAO.selectWordByName(answerTest.getAnswerOfDay())).willReturn(mockWord3);
+        // When
+        Answer actual = underTest.getGuessesForAnswer(answerTest);
+        // Then
+        Integer expected = 2;
+        assertThat(actual.getMachineResult()).isEqualTo(expected);
     }
 }
