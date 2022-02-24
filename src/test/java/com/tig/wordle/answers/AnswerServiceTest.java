@@ -153,6 +153,36 @@ public class AnswerServiceTest {
 
     @Test
     void updateAnswerById() {
+        // Given
+        // Create objects
+        Answer answer1 = new Answer(1, LocalDate.of(2019, 1, 20), "glass", 2);
+        Answer answer2 = new Answer(2, LocalDate.of(2019, 1, 21), "grass", 3);
+        Answer answer3 = new Answer(3, LocalDate.of(2019, 1, 22), "horse", 4);
+        // New (updated) answer object
+        Answer updatedAnswer = new Answer(3, LocalDate.of(2019, 1, 28), "tense", 2);
+
+        // Placeholder for list
+        List<Answer> answerList = new ArrayList<>();
+        // Add to list
+        answerList.add(answer1);
+        answerList.add(answer2);
+        answerList.add(answer3);
+
+        given(answerDAO.getAllAnswers()).willReturn(answerList);
+        given(answerDAO.getAnswerById(3)).willReturn(answer3);
+        given(answerDAO.updateAnswerById(3, updatedAnswer )).willReturn(1);
+        // When
+        Integer actual = underTest.updateAnswerById(3, updatedAnswer);
+        // Then
+        Integer expected = 1;
+        assertThat(actual).isEqualTo(expected);
     }
+
+//    public Integer updateAnswerById(Integer id, Answer answer) {
+//        if (getAnswerById(id) == null){
+//            throw new AnswerNotFoundException("No answer with given id exists");
+//        }
+//        return answerDAO.updateAnswerById(id, answer);
+//    }
 }
 
