@@ -35,7 +35,10 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return userDAO.getAllUsers();
+        if(userDAO.getAllUsers().size() == 0) {
+            throw new UserNotFoundException("No users found");
+        }
+        else return userDAO.getAllUsers();
     }
 
     public Integer addUserToTable(User user) {

@@ -1,5 +1,6 @@
 package com.tig.wordle.games;
 
+import com.tig.wordle.user.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,21 @@ public class GameService {
         this.gameDAO = gameDAO;
     }
     public List<Game> getAllGames(){
+        if(gameDAO.getAllGames().size() == 0) {
+            throw new GameNotFoundException("No games found");
+        }
         return gameDAO.getAllGames();
     }
     public Game getGameById(Integer id){
         return gameDAO.getGameById(id);
     }
     public Integer addGameToTable(Game game){
-        return gameDAO.addGameToTable(game);
+        if(game.getUserId() != null
+        && game.getAnswerId()!= null
+        && game.getUserGuesses() != null) {
+            return gameDAO.addGameToTable(game);
+        }
+        else throw new InputMissingForGameException("Fields cannot be empty");
     }
     public Integer deleteGameById(Integer id){
         if (gameDAO.getGameById(id) == null){
