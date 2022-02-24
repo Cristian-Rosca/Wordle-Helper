@@ -123,6 +123,16 @@ public class AnswerServiceTest {
     }
 
     @Test
+    void canThrowExceptionWhenaddingAnswerToTable() {
+
+        Answer answer1 = new Answer(4, LocalDate.of(2019, 1, 23), "", 5);
+
+        assertThatThrownBy(() -> {
+            underTest.addAnswerToTable(answer1);}
+        ).hasMessage("Invalid entry. Fields cannot be empty");
+
+    }
+    @Test
     void deleteAnswerById() {
         // Given
         // Create objects

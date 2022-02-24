@@ -62,10 +62,6 @@ public class AnswerService {
     }
 
     public Integer deleteAnswerById(Integer id) {
-//        boolean exists = doesAnswerWithIdExists(id);
-//        if (exists == false) {
-//            throw new AnswerNotFoundException("Answer with ID " + id + " does not exist");
-//        }
         getAnswerById(id);
         return answerDAO.deleteAnswerById(id);
     }
