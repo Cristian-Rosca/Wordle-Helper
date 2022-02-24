@@ -33,15 +33,21 @@ public class GameService {
     }
     public Integer deleteGameById(Integer id){
         if (gameDAO.getGameById(id) == null){
-            throw new GameNotFoundException("No game with this id exists");
+            throw new GameNotFoundException("Game with ID " + id + " does not exist");
         }
         return gameDAO.deleteGameById(id);
     }
     public Integer updateGameById(Integer id, Game game){
         if (gameDAO.getGameById(id) == null){
-            throw new GameNotFoundException("No game with this id exists");
+            throw new GameNotFoundException("Game with ID " + id + " does not exist");
         }
-        return gameDAO.updateGameById(id, game);
+        if(game.getUserId() != null
+                && game.getAnswerId()!= null
+                && game.getUserGuesses() != null) {
+            return gameDAO.updateGameById(id, game);
+        }
+        else throw new InputMissingForGameException("Fields cannot be empty");
+
     }
 
     public List<GameResults> getAllResultsVsMachineForDate (LocalDate date) {
