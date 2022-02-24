@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.mockito.Mockito;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,24 +52,90 @@ public class GameServiceTest {
     }
 
     @Test
-    void getGameById () {
+    void canThrowExceptionWhenGettingAllGames (){
         // Given
         Game testGame1 = new Game(1, 2, 3, 4);
         Game testGame2 = new Game(5, 6, 7, 8);
-        Game testGame3 = new Game(9, 10, 11, 12);
-        Game testGame4 = new Game(13, 14, 15, 16);
+
+
+        List<Game> allGames = new ArrayList<>();
+
+        given(gameDAO.getAllGames()).willReturn(allGames);
+
+        assertThatThrownBy(() -> {
+            underTest.getAllGames();}
+        ).hasMessage("No games found");
+
+    }
+
+    @Test
+    void getGameById () {
+        // Given
+        Game testGame1 = new Game(1, 2, 3, 4);
+        Game testGame2 = new Game(2, 6, 7, 8);
+        Game testGame3 = new Game(3, 10, 11, 12);
+
 
         List<Game> allGameById= new ArrayList<>();
         allGameById.add(testGame1);
         allGameById.add(testGame2);
         allGameById.add(testGame3);
-        allGameById.add(testGame4);
-        given(gameDAO.getGameById(1)).willReturn(testGame1);
+
+
+        given(gameDAO.getAllGames()).willReturn(allGameById);
+
+        given(gameDAO.getGameById(2)).willReturn(testGame2);
         // When
-        Game actual = underTest.getGameById(1);
+        Game actual = underTest.getGameById(2);
         // Then
-        Game expected = testGame1;
+        Game expected = testGame2;
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void canThrowExceptionWhenGettingGameById() {
+        // Create objects
+        Game testGame1 = new Game(1, 2, 3, 4);
+        Game testGame2 = new Game(2, 6, 7, 8);
+        Game testGame3 = new Game(3, 10, 11, 12);
+
+
+        List<Game> allGameById= new ArrayList<>();
+        allGameById.add(testGame1);
+        allGameById.add(testGame2);
+        allGameById.add(testGame3);
+
+        given(gameDAO.getAllGames()).willReturn(allGameById);
+
+        assertThatThrownBy(() -> {
+            underTest.getGameById(20);}
+        ).hasMessage("Game with ID 20 does not exist");
+
+    }
+    @Test
+    void canAddGameToTable () {
+        // Given
+        Game testGame1 = new Game(1, 2, 3, 4);
+
+
+        given(gameDAO.addGameToTable(testGame1)).willReturn(1);
+
+        // When
+       Integer actual = underTest.addGameToTable(testGame1);
+        // Then
+        Integer expected = 1;
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void canThrowExceptionWhenaddingGameToTable() {
+
+        Game testGame1 = new Game(1, null, 3, 4);
+
+        assertThatThrownBy(() -> {
+            underTest.addGameToTable(testGame1);}
+        ).hasMessage("Fields cannot be empty");
+
     }
 
 }

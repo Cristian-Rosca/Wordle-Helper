@@ -1,5 +1,6 @@
 package com.tig.wordle.answers;
 
+import com.tig.wordle.user.InputMissingException;
 import com.tig.wordle.user.User;
 import com.tig.wordle.user.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -50,20 +51,29 @@ public class AnswerService {
         if (dates.contains(answer.getDateOfAnswer())){
             throw new AnswerDateTakenException("Could not add answer to table as given date already exists");
         }
-        return answerDAO.addAnswerToTable(answer);
+
+        if (answer.getAnswerOfDay() != null
+                && answer.getDateOfAnswer() != null
+                && answer.getMachineResult() != null
+                && answer.getAnswerOfDay() != "") {
+            return answerDAO.addAnswerToTable(answer);
+        } else throw new InputMissingException("Invalid entry. Fields cannot be empty");
+
     }
 
     public Integer deleteAnswerById(Integer id) {
-        if (getAnswerById(id) == null){
-            throw new AnswerNotFoundException("No answer with given id exists");
-        }
+        getAnswerById(id);
         return answerDAO.deleteAnswerById(id);
     }
 
     public Integer updateAnswerById(Integer id, Answer answer) {
-        if (getAnswerById(id) == null){
-            throw new AnswerNotFoundException("No answer with given id exists");
-        }
-        return answerDAO.updateAnswerById(id, answer);
+        getAnswerById(id);
+        if (answer.getAnswerOfDay() != null
+                && answer.getDateOfAnswer() != null
+                && answer.getMachineResult() != null
+                && answer.getAnswerOfDay() != "") {
+            return answerDAO.updateAnswerById(id, answer);
+        } else throw new InputMissingException("Invalid entry. Fields cannot be empty");
+
     }
 }
