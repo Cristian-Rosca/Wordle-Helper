@@ -50,4 +50,25 @@ public class GameServiceTest {
 
     }
 
+    @Test
+    void getGameById () {
+        // Given
+        Game testGame1 = new Game(1, 2, 3, 4);
+        Game testGame2 = new Game(5, 6, 7, 8);
+        Game testGame3 = new Game(9, 10, 11, 12);
+        Game testGame4 = new Game(13, 14, 15, 16);
+
+        List<Game> allGameById= new ArrayList<>();
+        allGameById.add(testGame1);
+        allGameById.add(testGame2);
+        allGameById.add(testGame3);
+        allGameById.add(testGame4);
+        given(gameDAO.getGameById(1)).willReturn(testGame1);
+        // When
+        Game actual = underTest.getGameById(1);
+        // Then
+        Game expected = testGame1;
+        assertThat(actual).isEqualTo(expected);
+    }
+
 }
