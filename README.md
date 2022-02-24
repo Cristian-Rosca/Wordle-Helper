@@ -45,6 +45,19 @@ _Competitive Mode_
 
 <br>
 
+HTTP Requests
+
+HTTP Request  | Type | Function
+------------- |----------| -------------
+localhost:8080/ | .        | .
+localhost:8080/ | .        | .
+localhost:8080/ | .        | .
+localhost:8080/ | .        | .
+localhost:8080/ | .        | .
+localhost:8080/ | .        | .
+
+<br>
+
 ## Planning & Schedule
 
 Date  | Tasks
