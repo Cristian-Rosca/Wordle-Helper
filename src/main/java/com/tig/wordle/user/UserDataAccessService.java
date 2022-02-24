@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-// todo: verify if "user" is correct
 @Repository("user")
 public class UserDataAccessService implements UserDAO{
     private JdbcTemplate jdbcTemplate;
