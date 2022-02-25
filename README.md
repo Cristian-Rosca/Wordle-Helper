@@ -75,7 +75,7 @@ HTTP Request  | Type                                                            
 ## How to use Wordle Helper
 
 ### Methods
-#### _Word Service_ &nbsp; (``WordService``)
+### _Word Service_ &nbsp; (``WordService``)
 &nbsp;&nbsp;&nbsp;&nbsp;This service class invokes the data access layer to retrieve
 ``Word`` objects from the database. In addition, it also contains
 methods pertaining to the logic of the Wordle solver itself.
@@ -153,7 +153,7 @@ The resulting list of ``Word`` objects is then returned.
 property set to the computed value.
 
 
-#### _AnswerService_ &nbsp; (``AnswerService``)
+### _AnswerService_ &nbsp; (``AnswerService``)
 &nbsp;&nbsp;&nbsp;&nbsp;This service class invokes the data access layer to retrieve and update
 ``Answer`` objects from the database.
 
