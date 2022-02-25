@@ -152,8 +152,6 @@ The resulting list of ``Word`` objects is then returned.
 ``answer``. The ``answer`` is then returned with the ``machineResult``
 property set to the computed value.
 
-<br>
-
 #### _AnswerService_ &nbsp; (``AnswerService``)
 &nbsp;&nbsp;&nbsp;&nbsp;This service class invokes the data access layer to retrieve and update
 ``Answer`` objects from the database.
@@ -175,7 +173,7 @@ as ``Answer`` objects.
 &nbsp;&nbsp;&nbsp;&nbsp;Deletes ``Answer`` object with corresponding id from actual_answers table from argument
 
 ##### ``.updateAnswerById(Integer id, Answer answer)``
-&nbsp;&nbsp;&nbsp;&nbsp;Updates ``Answer`` object with corresponding id from actual_answers table with ``Answer`` object passed in arguement
+&nbsp;&nbsp;&nbsp;&nbsp;Updates ``Answer`` object with corresponding id from actual_answers table with ``Answer`` object passed in argument
 
 
 ###HTTP Requests
