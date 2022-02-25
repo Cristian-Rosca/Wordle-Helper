@@ -1,6 +1,6 @@
 # Wordle Helper Back-End Group Project
 
-We are The Imitation Game, a team consisting of BNTA Cohort 4 members, [Alex](https://github.com/oleksiysmola), [Cristian](https://github.com/Roscaaa), [Suad](https://github.com/suadali), [Rosalinda](https://github.com/rosaacodes), and [Rachel](https://github.com/rkaurb).
+We are The Imitation Game, a team consisting of [BNTA](https://techacademy.brightnetwork.co.uk/) Cohort 4 members, [Alex](https://github.com/oleksiysmola), [Cristian](https://github.com/Roscaaa), [Suad](https://github.com/suadali), [Rosalinda](https://github.com/rosaacodes), and [Rachel](https://github.com/rkaurb).
 
 <!-- ![img](wordlehelper.png) -->
 <img src="wordlehelper.png" width=60% height=60%>
@@ -10,7 +10,8 @@ We are The Imitation Game, a team consisting of BNTA Cohort 4 members, [Alex](ht
 
 ## Introduction
 
-This collaborative project consists of a Wordle solver application developed based on the concepts of information theory utilised within a YouTube video created and shared on [3Blue1Brown’s channel by Grant Sanderson](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw). The purpose of this Wordle solver application is to help the user guess the five letter word of the day in just a few tries!
+This collaborative project consists of a Wordle helper application, developed based on the concepts of information theory utilised in a YouTube video created and shared on [3Blue1Brown’s channel by Grant Sanderson](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw). The project was completed as part of the BNTA programme. <br><br>
+There are two modes: &nbsp; The purpose of Helper mode is to help the user guess the five-letter word of the day in just a few tries! There is also a competitive mode, including features that allow the user to create a user profile in the database, track their score against other users as well as against the machine, and to retrieve the average number of guesses it takes them to get the correct word.
 
 * [Solving Wordle using information theory](https://www.youtube.com/watch?v=v68zYyaEmEA)
 
