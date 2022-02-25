@@ -57,7 +57,7 @@ COPY actual_answers (date_of_given_answer, actual_word) FROM
 
 ## Project Structure
 
-###Entity Relationship (ER) Diagram
+### Entity Relationship (ER) Diagram
 
 ![img](erdiagram.png)
 
@@ -152,6 +152,7 @@ The resulting list of ``Word`` objects is then returned.
 ``answer``. The ``answer`` is then returned with the ``machineResult``
 property set to the computed value.
 
+
 #### _AnswerService_ &nbsp; (``AnswerService``)
 &nbsp;&nbsp;&nbsp;&nbsp;This service class invokes the data access layer to retrieve and update
 ``Answer`` objects from the database.
@@ -176,9 +177,9 @@ as ``Answer`` objects.
 &nbsp;&nbsp;&nbsp;&nbsp;Updates ``Answer`` object with corresponding id from actual_answers table with ``Answer`` object passed in argument
 
 
-###HTTP Requests
+### HTTP Requests
 
-###_Primary Helper Mode Requests_
+### _Primary Helper Mode Requests_
 
 HTTP Request  | Type   | Function
 ------------- |--------| -------------
@@ -189,14 +190,14 @@ localhost:8080/helper/start | GET    | Start the game. Will return best guesses 
 localhost:8080/helper/start/{word} | DELETE | Input your guess for {word} and include the pattern that you got from Wordle in request body as JSON (i.e: which letters were green, yellow, grey)
 localhost:8080/helper/endgame | DELETE | Ends game when you got the correct word
 
-###_Secondary Helper Mode Requests_
+### _Secondary Helper Mode Requests_
 
 HTTP Request  | Type | Function
 ------------- |------| -------------
 localhost:8080/helper/wordbyid/{id} | GET  | Get word by word id
 localhost:8080/helper/wordbyname/{nameofword} | GET  | Get word by word name
 
-###_Primary Competitive Mode Requests_
+### _Primary Competitive Mode Requests_
 
 HTTP Request  | Type   | Function
 ------------- |--------| -------------
@@ -214,7 +215,7 @@ localhost:8080/user| GET    | Get all users from database
 localhost:8080/user/{userId}| GET    | Get user from database by id
 localhost:8080/user| POST   | Add user (JSON)  to database using Request Body
 
-###_Secondary Competitive Mode Requests_
+### _Secondary Competitive Mode Requests_
 
 HTTP Request  | Type   | Function
 ------------- |--------| -------------
